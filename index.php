@@ -51,7 +51,7 @@ require_once __DIR__ . '/app/helpers/message.php';
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <a href="index.php" class="app-brand-link gap-2">
-                  <span class="app-brand-text demo text-body fw-bolder">EduProfile</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Edu Profiling</span>
                 </a>
               </div>
               <!-- /Logo -->

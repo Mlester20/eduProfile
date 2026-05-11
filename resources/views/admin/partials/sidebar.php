@@ -1,3 +1,8 @@
+<?php
+// Get current page name
+$currentPage = basename($_SERVER['PHP_SELF']);
+?>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
@@ -21,7 +26,7 @@
 
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
+        <li class="menu-item <?php echo ($currentPage === 'dashboard.php') ? 'active' : ''; ?>">
           <a href="dashboard.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
@@ -29,7 +34,7 @@
         </li>
 
         <!-- Layouts -->
-        <li class="menu-item">
+        <li class="menu-item <?php echo ($currentPage === 'layouts-without-menu.html' || $currentPage === 'layouts-without-navbar.html' || $currentPage === 'layouts-container.html' || $currentPage === 'layouts-fluid.html' || $currentPage === 'layouts-blank.html') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-layout"></i>
             <div data-i18n="Layouts">Layouts</div>
@@ -68,7 +73,7 @@
         </li>
 
         <!-- Users Management -->
-        <li class="menu-item">
+        <li class="menu-item <?php echo ($currentPage === 'users.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
             <div data-i18n="Users Management">Users Management</div>
@@ -83,7 +88,7 @@
         </li>
 
         <!-- Authentications -->
-        <li class="menu-item">
+        <li class="menu-item <?php echo ($currentPage === 'auth-login-basic.html' || $currentPage === 'auth-register-basic.html' || $currentPage === 'auth-forgot-password-basic.html') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
             <div data-i18n="Authentications">Authentications</div>
@@ -108,7 +113,7 @@
         </li>
 
         <!-- Misc -->
-        <li class="menu-item">
+        <li class="menu-item <?php echo ($currentPage === 'pages-misc-error.html' || $currentPage === 'pages-misc-under-maintenance.html') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-cube-alt"></i>
             <div data-i18n="Misc">Misc</div>

@@ -25,7 +25,11 @@ require_once __DIR__ . '/../../app/helpers/message.php';
             } 
             else if($_SESSION['role'] === 'administrative'){
                 header("Location: ../../resources/views/administrative/home.php");
-            } 
+            } else if($_SESSION['role'] === 'registrar'){
+                header("Location: ../../resources/views/registrar/home.php");
+            } else if($_SESSION['role'] === 'teacher'){
+                header("Location: ../../resources/views/teacher/home.php");
+            }
             else {
                 //throw to login for unknown role
                 header("Location: ../../../index.php");

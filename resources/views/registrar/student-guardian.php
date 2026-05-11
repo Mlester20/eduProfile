@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+require_once __DIR__ . '/../../../app/controllers/registrar/StudentGuardianController.php';
 require_once __DIR__ . '/../../../app/middleware/auth.php';
 allowOnly(['registrar']);
 ?>
@@ -42,6 +41,47 @@ allowOnly(['registrar']);
    
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
+
+    <div class="card">
+      <h5 class="card-header">Student Guardians</h5>
+      <div class="table-responsive nowrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Guardian Name</th>
+                <th>Relationship</th>
+                <th>Contact Number</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (!empty($guardians)) : ?>
+                <?php foreach ($guardians as $guardian) : ?>
+                  <tr>
+                    <td><?php echo htmlspecialchars($guardian['id']); ?></td>
+                    <td><?php echo htmlspecialchars($guardian['student_first_name'] . ' ' . $guardian['student_last_name']); ?></td>
+                    <td><?php echo htmlspecialchars($guardian['guardian_name']); ?></td>
+                    <td><?php echo htmlspecialchars($guardian['guardian_relationship']); ?></td>
+                    <td>
+                      <?php echo htmlspecialchars($guardian['guardian_contact'] ?? 'N/A'); ?>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-primary" onclick="editGuardian(<?php echo $guardian['id']; ?>)">Edit</button>
+                      <button class="btn btn-sm btn-danger" onclick="deleteGuardian(<?php echo $guardian['id']; ?>)">Delete</button>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php else : ?>
+                <tr>
+                  <td colspan="7" class="text-center">No guardians found.</td>
+                </tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
+      </div>
+    </div>
 
     <?php require_once __DIR__ . '/partials/footer.php'; ?>
     
