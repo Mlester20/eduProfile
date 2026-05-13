@@ -3,10 +3,12 @@ session_start();
 
 require_once __DIR__ . '/../../app/models/AuthModel.php';
 require_once __DIR__ . '../../../database/config/config.php';
+require_once __DIR__ . '/../../app/helpers/auditLogs.php';
 require_once __DIR__ . '/../../app/helpers/message.php';
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $authModel = new AuthModel($con);
+        $logger = new AuditLogs($con);
 
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -18,6 +20,17 @@ require_once __DIR__ . '/../../app/helpers/message.php';
             $_SESSION['email'] = $row['email'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['profile_picture'] = $row['profile_picture'];
+
+            $logger->log(
+                $row['id'],
+                $row['role'],
+                'LOGIN',
+                'AUTH',
+                null,
+                null,
+                $row['full_name'] . ' logged in',
+                'success'
+            );
 
             //check role and redirect
             if($_SESSION['role'] === 'admin'){
@@ -35,6 +48,16 @@ require_once __DIR__ . '/../../app/helpers/message.php';
                 header("Location: ../../../index.php");
             }
         }else{  
+            $logger->log(
+                null,
+                'user',
+                'LOGIN',
+                'AUTH',
+                null,
+                null,
+                'Failed login attempt: ' . $email,
+                'failed'
+            );
             setFlash('error', 'Invalid email or password');
             header("Location: ../../../index.php");
             exit();

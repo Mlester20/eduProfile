@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2026 at 04:34 PM
+-- Generation Time: May 13, 2026 at 06:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `profilingdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `audit_logs`
+--
+
+CREATE TABLE `audit_logs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `action` varchar(50) NOT NULL,
+  `module` varchar(100) NOT NULL,
+  `reference_id` int(10) UNSIGNED DEFAULT NULL,
+  `reference_table` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `status` enum('success','failed') NOT NULL DEFAULT 'success',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +67,7 @@ CREATE TABLE `parents_guardians` (
 --
 
 INSERT INTO `parents_guardians` (`id`, `student_id`, `father_name`, `father_occupation`, `father_contact`, `mother_name`, `mother_occupation`, `mother_contact`, `guardian_name`, `guardian_relationship`, `guardian_contact`, `monthly_income`) VALUES
-(1, 2, 'Armando Raguindin', 'Tricycle Driver', NULL, 'Melba Raguindin', 'Baby Sitter', NULL, 'Melba Raguindin', 'Parents', NULL, NULL);
+(3, 2, 'Armando Raguindin', 'Tricycle Driver', '09360991034', 'Melba Raguindin', 'Baby Sitter', '09685340012', 'Melba Raguindin', 'Mother', '', 0.00);
 
 -- --------------------------------------------------------
 
@@ -116,6 +136,13 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_pi
 --
 
 --
+-- Indexes for table `audit_logs`
+--
+ALTER TABLE `audit_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_audit_logs_user_id` (`user_id`);
+
+--
 -- Indexes for table `parents_guardians`
 --
 ALTER TABLE `parents_guardians`
@@ -140,10 +167,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `audit_logs`
+--
+ALTER TABLE `audit_logs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `parents_guardians`
 --
 ALTER TABLE `parents_guardians`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -160,6 +193,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `audit_logs`
+--
+ALTER TABLE `audit_logs`
+  ADD CONSTRAINT `fk_audit_logs_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `parents_guardians`

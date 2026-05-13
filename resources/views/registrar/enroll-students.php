@@ -171,7 +171,7 @@ allowOnly(['registrar']);
         </div>
     </div>
 
-    <!-- Edit Student Modal -->
+    <!-- View Student Modal -->
     <div class="modal fade" id="viewStudentModal" tabindex="-1" aria-labelledby="viewStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
