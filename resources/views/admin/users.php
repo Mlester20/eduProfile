@@ -62,23 +62,22 @@ allowOnly(['admin']);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="userForm" method="POST" action="">
+                    <form id="userForm" method="POST" action="../../../app/controllers/admin/UsersController.php">
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" name="full_name" required>
+                            <input type="text" class="form-control" id="fullName" name="full_name" placeholder="e.g., Juan Dela-Cruz" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="e.g., juan.dela.cruz@example.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter a strong password" required>
                         </div>
                         <div class="mb-3">
                             <label for="role" class="form-label">Role</label>
                             <select class="form-control" id="role" name="role" required>
-                                <option value="user">User</option>
                                 <option value="admin">Admin</option>
                                 <option value="teacher">Teacher</option>
                                 <option value="registrar">Registrar</option>
@@ -88,6 +87,43 @@ allowOnly(['admin']);
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" name="createUser">Save User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserForm" method="POST" action="../../../app/controllers/admin/UsersController.php">
+                        <input type="hidden" id="editUserId" name="id">
+                        <div class="mb-3">
+                            <label for="editFullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="editFullName" name="full_name" placeholder="e.g., Juan Dela-Cruz" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" placeholder="e.g., juan.dela.cruz@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editRole" class="form-label">Role</label>
+                            <select class="form-control" id="editRole" name="role" required>
+                                <option value="admin">Admin</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="registrar">Registrar</option>
+                                <option value="administrative">Administrative</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="updateUser">Update User</button>
                         </div>
                     </form>
                 </div>
@@ -116,12 +152,31 @@ allowOnly(['admin']);
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td><?= htmlspecialchars($user['role']) ?></td>
                             <td>
-                                <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#createUserModal" onclick="editUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['full_name']) ?>', '<?= htmlspecialchars($user['email']) ?>', '<?= htmlspecialchars($user['role']) ?>')">
-                                    <i class="bx bx-edit-alt"></i> Edit
+                                <button class="btn btn-sm btn-warning"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editUserModal"
+                                    data-id="<?= htmlspecialchars($user['id']) ?>"
+                                    onclick="editUser(
+                                        '<?= htmlspecialchars($user['id']) ?>',
+                                        '<?= htmlspecialchars($user['full_name']) ?>',
+                                        '<?= htmlspecialchars($user['email']) ?>',
+                                        '<?= htmlspecialchars($user['role']) ?>'
+                                    )"
+                                    >
+                                    Edit
                                 </button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteUser(<?= $user['id'] ?>)">
-                                    <i class="bx bx-trash"></i> Delete
-                                </button>
+                                
+                                <form action="../../../app/controllers/admin/UsersController.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']) ?>">
+                                    <button 
+                                        type="submit" 
+                                        class="btn btn-sm btn-danger" 
+                                        name="deleteUser"
+                                        onclick="return confirm('Are you sure you want to delete this user?')"
+                                        >
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -140,6 +195,7 @@ allowOnly(['admin']);
     <script src="../../../public/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="../../../public/assets/js/main.js"></script>
     <script src="../../../public/assets/js/dashboards-analytics.js"></script>
+    <script src="../../../public/js/admin/users.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

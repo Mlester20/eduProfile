@@ -23,6 +23,9 @@ require_once __DIR__ . '/../../helpers/hashPassword.php';
                 $query = "INSERT INTO {$this->users} (full_name, email, password, role) VALUES (?, ?, ?, ?)";
                 $stmt = $this->con->prepare($query);
                 $hashedPassword = HashPassword::passwordHash($data['password']);
+                if(!$stmt){
+                    throw new Exception("Error preparing statement");
+                }
                 $stmt->bind_param("ssss", $data['full_name'], $data['email'], $hashedPassword, $data['role']);
                 $stmt->execute();
                 return true;
@@ -34,15 +37,27 @@ require_once __DIR__ . '/../../helpers/hashPassword.php';
 
         public function update($id, $data){
             try{
-                
+                $query = "UPDATE {$this->users} SET full_name = ?, email = ?, role = ? WHERE id = ?";
+                $stmt = $this->con->prepare($query);
+                if(!$stmt){
+                    throw new Exception("Error preparing statement");
+                }
+                $stmt->bind_param("sssi", $data['full_name'], $data['email'], $data['role'], $id);
+                $stmt->execute();
+                return true;
             }catch(Exception $e){
                 error_log($e->getMessage());
+                exit();
             }
         }
 
         public function delete($id){
             try{
-                
+                $query = "DELETE FROM {$this->users} WHERE id = ?";
+                $stmt = $this->con->prepare($query);
+                $stmt->bind_param("i", $id);
+                $stmt->execute();
+                return true;
             }catch(Exception $e){
                 error_log($e->getMessage());
                 exit();

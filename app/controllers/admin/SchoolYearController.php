@@ -96,6 +96,12 @@ require_once __DIR__ . '/../../helpers/message.php';
 
         public function delete($id){
             try{
+                // Check if the school year can be deleted
+                if(!$this->canDelete($id)){
+                    setFlash('error', 'This is an active school year and cannot be deleted.');
+                    header('Location: ../../../resources/views/admin/sy.php');
+                    exit();
+                }
                 if($this->model->delete(['id' => $id])){
                     $this->logs->log(
                             $_SESSION['id'] ?? null,

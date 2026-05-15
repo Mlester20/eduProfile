@@ -6,7 +6,7 @@ require_once __DIR__ . '/../Model.php';
 
         public function index(){
             try{
-                $query = "SELECT audit_logs.*, users.full_name as user_fullName FROM audit_logs JOIN users ON audit_logs.user_id = users.id ORDER BY audit_logs.created_at DESC";
+                $query = "SELECT audit_logs.*, users.full_name as user_fullName FROM audit_logs JOIN users ON audit_logs.user_id = users.id ORDER BY audit_logs.created_at ASC";
                 $stmt = $this->con->prepare($query);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -16,6 +16,7 @@ require_once __DIR__ . '/../Model.php';
             }
         }
         
+
     }
 
 ?>

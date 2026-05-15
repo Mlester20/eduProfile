@@ -182,7 +182,7 @@ allowOnly(['admin']);
                           type="submit" 
                           name="delete_sy" 
                           class="btn btn-danger btn-sm"
-                          onclick="return confirm('are you sure you want to delete this records?')"  
+                          onclick="return confirm('are you sure you want to delete this record?')"  
                         >
                         Delete
                       </button>
