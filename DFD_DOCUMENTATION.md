@@ -388,7 +388,7 @@ Stores uploaded student documents.
 
 ---
 
-# Recommended Development Stack
+#Development Stack
 
 | Component | Technology  |
 | --------- | ----------- |
@@ -401,7 +401,7 @@ Stores uploaded student documents.
 
 ---
 
-# Recommended Folder Structure
+# Folder Structure
 
 ```text
 app/
