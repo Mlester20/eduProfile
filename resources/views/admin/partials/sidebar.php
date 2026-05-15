@@ -33,41 +33,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </a>
         </li>
 
-        <!-- Layouts -->
-        <li class="menu-item <?php echo ($currentPage === 'layouts-without-menu.html' || $currentPage === 'layouts-without-navbar.html' || $currentPage === 'layouts-container.html' || $currentPage === 'layouts-fluid.html' || $currentPage === 'layouts-blank.html') ? 'active' : ''; ?>">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-layout"></i>
-            <div data-i18n="Layouts">Layouts</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="layouts-without-menu.html" class="menu-link">
-                <div data-i18n="Without menu">Without menu</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-without-navbar.html" class="menu-link">
-                <div data-i18n="Without navbar">Without navbar</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-container.html" class="menu-link">
-                <div data-i18n="Container">Container</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Fluid</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-blank.html" class="menu-link">
-                <div data-i18n="Blank">Blank</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-
         <li class="menu-header small text-uppercase">
           <span class="menu-header-text">Lists</span>
         </li>
@@ -87,50 +52,36 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </ul>
         </li>
 
-        <!-- Authentications -->
-        <li class="menu-item <?php echo ($currentPage === 'auth-login-basic.html' || $currentPage === 'auth-register-basic.html' || $currentPage === 'auth-forgot-password-basic.html') ? 'active' : ''; ?>">
+        <!-- School Year -->
+        <li class="menu-item <?php echo ($currentPage === 'sy.php' || $currentPage === 'pages-misc-under-maintenance.html') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div data-i18n="Authentications">Authentications</div>
+            <i class="menu-icon tf-icons bx bx-calendar"></i>
+            <div data-i18n="Misc">School Year</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Login</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Register</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Forgot Password</div>
+              <a href="sy.php" class="menu-link">
+                <div data-i18n="Error">Manage School Year</div>
               </a>
             </li>
           </ul>
         </li>
 
-        <!-- Misc -->
-        <li class="menu-item <?php echo ($currentPage === 'pages-misc-error.html' || $currentPage === 'pages-misc-under-maintenance.html') ? 'active' : ''; ?>">
+        <!-- Audit Logs -->
+        <li class="menu-item <?php echo ($currentPage === 'audit-logs.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-            <div data-i18n="Misc">Misc</div>
+            <i class="menu-icon tf-icons bx bx-history"></i>
+            <div data-i18n="Authentications">Audit Logs</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="pages-misc-error.html" class="menu-link">
-                <div data-i18n="Error">Error</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-under-maintenance.html" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="audit-logs.php" class="menu-link">
+                <div data-i18n="Basic">View Audit Logs</div>
               </a>
             </li>
           </ul>
         </li>
+
       </ul>
     </aside>
     <!-- / Menu -->

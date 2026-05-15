@@ -5,6 +5,7 @@ require_once __DIR__ . '/../Model.php';
         protected $students = 'students';
         protected $perPage = 10;
 
+
         public function index(){
             try{
                 $query = "SELECT * FROM {$this->students} ORDER BY id ASC ";

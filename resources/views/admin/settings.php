@@ -28,7 +28,7 @@ $memberSince = (is_array($userProfile) && !empty($userProfile['created_at'])) ? 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Dashboard | <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Profile Settings</title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

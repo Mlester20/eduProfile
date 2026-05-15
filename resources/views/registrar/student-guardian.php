@@ -21,7 +21,7 @@ allowOnly(['registrar']);
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Home </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Parent/Guardian </title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
