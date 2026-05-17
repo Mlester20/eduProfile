@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2026 at 09:38 AM
+-- Generation Time: May 17, 2026 at 07:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,8 +46,29 @@ CREATE TABLE `audit_logs` (
 --
 
 INSERT INTO `audit_logs` (`id`, `user_id`, `role`, `action`, `module`, `reference_id`, `reference_table`, `description`, `ip_address`, `status`, `created_at`) VALUES
-(28, 6, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'registrar 1 logged in', '::1', 'success', '2026-05-15 07:03:58'),
-(29, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 07:07:17');
+(29, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 07:07:17'),
+(30, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 11:39:18'),
+(31, 4, 'admin', 'CREATE SCHOOL YEAR', 'SCHOOL_YEAR', NULL, 'school_years', 'admin created a new school year record', '::1', 'success', '2026-05-15 11:42:14'),
+(33, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 11:48:57'),
+(34, 4, 'admin', 'DELETE SCHOOL YEAR', 'SCHOOL_YEAR', 10, 'school_years', 'admin deleted a school year record', '::1', 'success', '2026-05-15 11:49:56'),
+(35, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 12:39:38'),
+(36, 4, 'admin', 'DELETE USER', 'USERS', 11, 'users', 'admin deleted a user record with ID: 11', '::1', 'success', '2026-05-15 12:40:59'),
+(37, 4, 'admin', 'DELETE USER', 'USERS', 12, 'users', 'admin deleted a user record with ID: 12', '::1', 'success', '2026-05-15 12:45:12'),
+(38, 4, 'admin', 'UPDATE USER', 'USERS', 5, 'users', 'admin updated a user record with ID: 5', '::1', 'success', '2026-05-15 12:57:41'),
+(39, 4, 'admin', 'UPDATE USER', 'USERS', 5, 'users', 'admin updated a user record with ID: 5', '::1', 'success', '2026-05-15 12:57:50'),
+(40, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 12:58:11'),
+(41, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 13:04:11'),
+(42, 4, 'admin', 'CREATE USER', 'USERS', NULL, 'users', 'admin created a new user with email: registrar@gmail.com', '::1', 'success', '2026-05-15 13:04:43'),
+(43, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-15 13:07:07'),
+(44, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 1 logged in', '::1', 'success', '2026-05-15 13:11:14'),
+(45, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 1 logged in', '::1', 'success', '2026-05-15 13:12:45'),
+(46, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 1 logged in', '::1', 'success', '2026-05-15 13:13:45'),
+(47, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 1 logged in', '::1', 'success', '2026-05-15 13:24:52'),
+(48, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-15 13:41:13'),
+(49, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-15 13:42:48'),
+(50, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-16 13:55:34'),
+(51, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-17 04:56:28'),
+(52, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-17 04:56:41');
 
 -- --------------------------------------------------------
 
@@ -164,6 +185,34 @@ CREATE TABLE `student_sections` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `subject_code` varchar(50) DEFAULT NULL,
+  `subject_name` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `subject_code`, `subject_name`, `created_at`, `updated_at`) VALUES
+(1, 'G1-FIL', 'Filipino 1', '2026-05-16 13:52:29', '2026-05-16'),
+(2, 'G1-ENG', 'English 1', '2026-05-16 13:52:29', '2026-05-16'),
+(3, 'G1-MATH', 'Mathematics 1', '2026-05-16 13:52:29', '2026-05-16'),
+(4, 'G1-SCI', 'Science 1', '2026-05-16 13:52:29', '2026-05-16'),
+(5, 'G1-MTB', 'Mother Tongue 1', '2026-05-16 13:52:29', '2026-05-16'),
+(6, 'G1-ESP', 'Edukasyon sa Pagpapakatao 1', '2026-05-16 13:52:29', '2026-05-16'),
+(7, 'G1-MAPEH', 'MAPEH 1', '2026-05-16 13:52:29', '2026-05-16'),
+(8, 'G1-AP', 'Araling Panlipunan 1', '2026-05-16 13:52:29', '2026-05-16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -186,8 +235,7 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_pi
 (3, 'Administrative', 'administrative@gmail.com', '$2y$10$CQASCJeXsOYOvWm4kK03i.S1SxUWsdPMv56Qlz04eq0GazfxE8FSi', 'administrative', 'storage/profiles/pfp_3_1778323470.jpg', '2026-05-09', '2026-05-09'),
 (4, 'admin', 'admin@gmail.com', '$2y$10$ihbCVd8WOJO17B4BFQgAUORhb1UEYpIFmpd1Q/ShW6n5uNMkLZ7kq', 'admin', '8.jpg', '2026-05-09', '2026-05-09'),
 (5, 'teacher 1', 'teacher@gmail.com', '$2y$10$JIgDIhgM0PF2mpHSeNWEk.EwMUrAhweKqBinP9shLxyInzdhrbwbe', 'teacher', NULL, '2026-05-10', '2026-05-10'),
-(6, 'registrar 1', 'registrar@gmail.com', '$2y$10$9Q0F.LEhZcTQs4uUEWIX.On1wcNUZx.TdPA6VwdEmLlmPRHfUL4tG', 'registrar', 'storage/profiles/pfp_6_1778483665.png', '2026-05-10', '2026-05-11'),
-(7, 'Super Admin', 'superadmin@gmail.com', '$2y$10$s7yJsTNr9S1pM/a0CGihludIK0V2/kkXvWTmorhOD9AH6I859ly2q', 'admin', NULL, '2026-05-10', '0000-00-00');
+(13, 'Registrar', 'registrar@gmail.com', '$2y$10$IEz8YAjPkN2ddoQTR6YRUupEwnweJ6YNzsl8opZsKoXrMMFkaJYZG', 'registrar', NULL, '2026-05-15', '0000-00-00');
 
 --
 -- Indexes for dumped tables
@@ -238,6 +286,12 @@ ALTER TABLE `student_sections`
   ADD KEY `section_id` (`section_id`);
 
 --
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -251,7 +305,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `parents_guardians`
@@ -263,7 +317,7 @@ ALTER TABLE `parents_guardians`
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -284,10 +338,16 @@ ALTER TABLE `student_sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

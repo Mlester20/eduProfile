@@ -67,21 +67,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </ul>
         </li>
 
-        <!-- Misc -->
-        <li class="menu-item <?php echo ($currentPage === 'pages-misc-error.html' || $currentPage === 'pages-misc-under-maintenance.html') ? 'active' : ''; ?>">
+        <!-- Subjects -->
+        <li class="menu-item <?php echo ($currentPage === 'subjects.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-            <div data-i18n="Misc">Misc</div>
+            <i class="menu-icon tf-icons bx bx-book"></i>
+            <div data-i18n="Misc">Subjects</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="pages-misc-error.html" class="menu-link">
-                <div data-i18n="Error">Error</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="pages-misc-under-maintenance.html" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="subjects.php" class="menu-link">
+                <div data-i18n="Error">Manage Subjects</div>
               </a>
             </li>
           </ul>

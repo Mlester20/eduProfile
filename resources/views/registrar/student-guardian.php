@@ -47,7 +47,7 @@ allowOnly(['registrar']);
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
 
     <div class="text-end">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Entry Student Guardian</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Add Student/Guardian</button>
     </div>
 
     <!-- add modal -->
@@ -81,15 +81,15 @@ allowOnly(['registrar']);
                     <h6 class="mb-3">Father Info</h6>
                     <div class="mb-3">
                       <label for="fatherName" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="fatherName" name="father_name">
+                      <input type="text" class="form-control" id="fatherName" name="father_name" placeholder="e.g., Juan Dela Crux Sr.">
                     </div>
                     <div class="mb-3">
                       <label for="fatherOccupation" class="form-label">Occupation</label>
-                      <input type="text" class="form-control" id="fatherOccupation" name="father_occupation">
+                      <input type="text" class="form-control" id="fatherOccupation" name="father_occupation" placeholder="e.g., Engineer">
                     </div>
                     <div class="mb-3">
                       <label for="fatherContact" class="form-label">Contact</label>
-                      <input type="tel" class="form-control" id="fatherContact" name="father_contact">
+                      <input type="tel" class="form-control" id="fatherContact" name="father_contact" placeholder="e.g., 09123456789">
                     </div>
                   </div>
 
@@ -97,15 +97,15 @@ allowOnly(['registrar']);
                     <h6 class="mb-3">Mother Info</h6>
                     <div class="mb-3">
                       <label for="motherName" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="motherName" name="mother_name">
+                      <input type="text" class="form-control" id="motherName" name="mother_name" placeholder="e.g., Maria Dela Crux">
                     </div>
                     <div class="mb-3">
                       <label for="motherOccupation" class="form-label">Occupation</label>
-                      <input type="text" class="form-control" id="motherOccupation" name="mother_occupation">
+                      <input type="text" class="form-control" id="motherOccupation" name="mother_occupation" placeholder="e.g., Teacher ">
                     </div>
                     <div class="mb-3">
                       <label for="motherContact" class="form-label">Contact</label>
-                      <input type="tel" class="form-control" id="motherContact" name="mother_contact">
+                      <input type="tel" class="form-control" id="motherContact" name="mother_contact" placeholder="e.g., 09123456789">
                     </div>
                   </div>
                 </div>
@@ -115,15 +115,15 @@ allowOnly(['registrar']);
                     <h6 class="mb-3">Guardian Info</h6>
                     <div class="mb-3">
                       <label for="guardianName" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="guardianName" name="guardian_name">
+                      <input type="text" class="form-control" id="guardianName" name="guardian_name" placeholder="e.g., Pedro Dela Crux">
                     </div>
                     <div class="mb-3">
                       <label for="guardianRelationship" class="form-label">Relationship</label>
-                      <input type="text" class="form-control" id="guardianRelationship" name="guardian_relationship">
+                      <input type="text" class="form-control" id="guardianRelationship" name="guardian_relationship" placeholder="e.g., Uncle">
                     </div>
                     <div class="mb-3">
                       <label for="guardianContact" class="form-label">Contact</label>
-                      <input type="tel" class="form-control" id="guardianContact" name="guardian_contact">
+                      <input type="tel" class="form-control" id="guardianContact" name="guardian_contact" placeholder="e.g., 09123456789">
                     </div>
                   </div>
 
@@ -415,7 +415,7 @@ allowOnly(['registrar']);
       <!-- Pagination -->
       <div class="card-footer" style="background-color: transparent; border: none; padding: 1rem 0;">
         <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-end mb-0">
+          <ul class="pagination justify-content-center mb-3">
             <?php if ($current_page > 1): ?>
             <li class="page-item">
               <a class="page-link" href="?page=1">First</a>
