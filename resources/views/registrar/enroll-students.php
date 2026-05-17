@@ -452,7 +452,7 @@ allowOnly(['registrar']);
         <!-- Pagination -->
         <div class="card-footer">
             <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-end mb-0">
+                <ul class="pagination justify-content-center mb-0">
                     <?php if ($paginatedData['currentPage'] > 1): ?>
                     <li class="page-item">
                         <a class="page-link" href="?page=1">First</a>
