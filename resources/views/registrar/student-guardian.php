@@ -46,8 +46,18 @@ allowOnly(['registrar']);
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
 
-    <div class="text-end">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Add Student/Guardian</button>
+
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Parent or Guardian (e.g., Juan Dela Cruz)" id="searchInput">
+        </div>
+      </div>
+      
+      <!-- Add Button sa Kanan -->
+      <div class="col-md-6 text-end mt-2 mt-md-0">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Add Student/Guardian</button>
+      </div>
     </div>
 
     <!-- add modal -->

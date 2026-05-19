@@ -56,7 +56,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <li class="menu-item <?php echo ($currentPage === 'student-guardian.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-group"></i>
-            <div data-i18n="Authentications">Manage Guardians</div>
+            <div data-i18n="Manage Guardians">Manage Guardians</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
@@ -71,12 +71,27 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <li class="menu-item <?php echo ($currentPage === 'subjects.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-book"></i>
-            <div data-i18n="Misc">Subjects</div>
+            <div data-i18n="Subjects">Subjects</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="subjects.php" class="menu-link">
                 <div data-i18n="Error">Manage Subjects</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Sections -->
+        <li class="menu-item <?php echo ($currentPage === 'sections.php') ? 'active' : ''; ?>">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-grid-alt"></i>
+            <div data-i18n="Sections">Sections</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="sections.php" class="menu-link">
+                <div data-i18n="Error">Manage Sections</div>
               </a>
             </li>
           </ul>
