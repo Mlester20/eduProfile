@@ -35,8 +35,7 @@ require_once __DIR__ . '/../../app/helpers/message.php';
             //check role and redirect
             if($_SESSION['role'] === 'admin'){
                 header("Location: ../../resources/views/admin/dashboard.php");
-            } 
-            else if($_SESSION['role'] === 'administrative'){
+            } else if($_SESSION['role'] === 'administrative'){
                 header("Location: ../../resources/views/administrative/home.php");
             } else if($_SESSION['role'] === 'registrar'){
                 header("Location: ../../resources/views/registrar/home.php");

@@ -1,7 +1,3 @@
-// ========================================
-// Modal Functions
-// ========================================
-
 function editGuardian(id, studentId, fatherName, fatherOccupation, fatherContact, motherName, motherOccupation, motherContact, guardianName, guardianRelationship, guardianContact, monthlyIncome) {
     document.getElementById('edit_id').value = id;
     document.getElementById('editStudentId').value = studentId || '';
@@ -91,14 +87,12 @@ async function searchGuardians(keyword) {
             credentials: 'same-origin'
         });
 
-        // Handle response
         if (!response.ok) {
             throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
 
-        // Check API success
         if (!data.success) {
             throw new Error(data.message || 'Search failed');
         }
@@ -137,7 +131,6 @@ function renderSearchResults(results) {
         return;
     }
 
-    // Build table rows from search results
     const rows = results.map(guardian => {
         const studentName = `${guardian.first_name || ''} ${guardian.last_name || ''}`.trim();
         const guardianName = guardian.guardian_name || 'N/A';
@@ -257,15 +250,12 @@ function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
     
     if (!searchInput) return;
-
-    // Add event listener with debounce
     const debouncedSearch = debounce((e) => {
         const keyword = e.target.value.trim();
         searchGuardians(keyword);
-    }, 300); // 300ms delay
+    }, 300);
 
     searchInput.addEventListener('input', debouncedSearch);
 }
 
-// Initialize search when DOM is ready
 document.addEventListener('DOMContentLoaded', initializeSearch);

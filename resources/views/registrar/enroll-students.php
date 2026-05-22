@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/controllers/registrar/EnrollStudentController.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['registrar']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+// Ensure user is authenticated and has the 'registrar' role
+AuthRole::allowOnly(['registrar']);
 ?>
 
 <!DOCTYPE html>

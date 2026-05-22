@@ -5,6 +5,7 @@ require_once __DIR__ . '/../Model.php';
         protected $users = 'users'; //get user where role is teacher
         protected $school_years = 'school_year'; //get active school year
         protected $sections = 'sections';
+        protected $students = 'students';
 
         public function index(){
             $query = "SELECT s.*, u.full_name AS adviser_name, sy.school_year FROM {$this->sections} s 
@@ -31,9 +32,13 @@ require_once __DIR__ . '/../Model.php';
             return true;
         }
 
-        public function getTeachers(){
+        public function getAvailableTeachers(){
             try{
-                $query = "SELECT id, name FROM {$this->users} WHERE role = 'teacher'";
+                $query = "SELECT * FROM {$this->users} 
+                          WHERE role = 'teacher' 
+                          AND id NOT IN (
+                              SELECT DISTINCT adviser_id FROM {$this->sections} WHERE adviser_id IS NOT NULL
+                          )";
                 $stmt = $this->con->prepare($query);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -42,6 +47,19 @@ require_once __DIR__ . '/../Model.php';
                 error_log('Get teachers error: ' . $e->getMessage());
                 return [];
             }
+        }
+
+        //function to calculate and return as total count of students in one section
+        public function totalStudents($section_id){
+            $query = "SELECT COUNT(DISTINCT s.id) AS total 
+                      FROM {$this->students} s 
+                      JOIN student_sections ss ON s.id = ss.student_id 
+                      WHERE ss.section_id = ?";
+            $stmt = $this->con->prepare($query);
+            $stmt->bind_param("i", $section_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_assoc()['total'];
         }
 
         public function getActiveSchoolYear(){

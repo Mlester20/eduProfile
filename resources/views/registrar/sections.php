@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../app/controllers/registrar/SectionsController.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['registrar']);
-
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['registrar']);
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,7 @@ allowOnly(['registrar']);
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Dashboard </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Sections </title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +44,88 @@ allowOnly(['registrar']);
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
 
-    <div class="card">
+    <div class="row mb-3 align-items-center">
+      <div class="col md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Sections (e.g., Mahogani...)" id="searchSections">
+        </div>
+      </div>
+      <div class="col-md-6 text-end mt-2 mt-md-0">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">Add Section</button>
+      </div>
+    </div>
+
+    <!-- add section modal -->
+    <div class="modal fade" id="addSectionModal" tabindex="-1" aria-labelledby="addSectionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="../../../app/controllers/registrar/SectionsController.php" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addSectionModalLabel">Add Section</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="section_name" class="form-label">Section Name</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="section_name" 
+                  name="section_name" 
+                  placeholder="e.g., Mahogany" 
+                  required
+                >
+              </div>
+              <div class="mb-3">
+                <label for="section_grade_level" class="form-label">Grade Level</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="section_grade_level" 
+                  name="grade_level" 
+                  placeholder="e.g., Grade 5" 
+                  required
+                >
+              </div>
+              <!-- dropdown for teacher assignment -->
+              <div class="mb-3">
+                <label for="adviser_id" class="form-label">Adviser</label>
+                <select class="form-select" id="adviser_id" name="adviser_id" required>
+                  <option value="">Select Adviser</option>
+                  <?php foreach($teachers as $teacher): ?>
+                    <option value="<?php echo $teacher['id']; ?>">
+                      <?php echo htmlspecialchars($teacher['full_name']); ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <!-- dropdown for current school year -->
+              <div class="mb-3">
+                <label for="school_year_id" class="form-label">School Year</label>
+                <select class="form-select" id="school_year_id" name="school_year_id" required>
+                  <option value="">Select School Year</option>
+                  <?php if($sy): ?>
+                    <option value="<?php echo $sy['id']; ?>">
+                      <?php echo htmlspecialchars($sy['school_year']); ?>
+                    </option>
+                  <?php endif; ?>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary" name="save_section">
+                Save Section
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-4">
       <h5 class="card-header">Sections</h5>
       <div class="table-responsive nowrap">
         <table class="table">
@@ -54,37 +134,45 @@ allowOnly(['registrar']);
               <th>#</th>
               <th>Section Name</th>
               <th>Grade Level</th>
-              <th>Teacher</th>
+              <th>Teacher Assigned</th>
               <th>School Year</th>
-              <th>Max Students</th>
+              <th>Total Students</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($sections as $section): ?>
-              <tr>
-                <td><?php echo $section['id']; ?></td>
-                <td><?php echo $section['section_name']; ?></td>
-                <td><?php echo $section['grade_level']; ?></td>
-                <td><?php echo $section['adviser_name']; ?></td>
-                <td><?php echo $section['school_year']; ?></td>
-                <td><?php echo $section['max_students']; ?></td>
-                <td>
-                  <button class="btn btn-sm btn-primary">Edit</button>
+            <?php
+              if(!empty($sections)):
+            ?>
+              <?php foreach ($sections as $section): ?>
+                <tr>
+                  <td><?php echo $section['id']; ?></td>
+                  <td><?php echo $section['section_name']; ?></td>
+                  <td><?php echo $section['grade_level']; ?></td>
+                  <td><?php echo $section['adviser_name']; ?></td>
+                  <td><?php echo $section['school_year']; ?></td>
+                  <td><?php echo $section['total_students']; ?></td>
+                  <td>
+                    <button class="btn btn-sm btn-primary">Edit</button>
 
-                  <form method="POST" action="../../../app/controllers/registrar/SectionsController.php" style="display: inline;">
-                    <input type="hidden" name="delete_section" value="<?php echo $section['id']; ?>">
-                    <button 
-                        type="submit" 
-                        class="btn btn-sm btn-danger" 
-                        onclick="return confirm('Are you sure you want to delete this section?')"
-                        >
-                        Delete
-                    </button>
-                  </form>
-                </td>
+                    <form method="POST" action="../../../app/controllers/registrar/SectionsController.php" style="display: inline;">
+                      <input type="hidden" name="delete_section" value="<?php echo $section['id']; ?>">
+                      <button 
+                          type="submit" 
+                          class="btn btn-sm btn-danger" 
+                          onclick="return confirm('Are you sure you want to delete this section?')"
+                          >
+                          Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="7" class="text-center">No sections found.</td>
               </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>

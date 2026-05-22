@@ -1,15 +1,14 @@
 <?php
-require_once __DIR__ . '/../../../app/controllers/registrar/SubjectsController.php';
+require_once __DIR__ . '/../../../app/controllers/registrar/StudentSectionController.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/middleware/Role.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 AuthRole::allowOnly(['registrar']);
 
-try{
-    $controller = new SubjectsController($con);
-}catch(Exception $e){
-    echo($e->getMessage());
-}
+// debugging output
+echo "<pre>";
+print_r($sections);
+echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@ try{
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Subjects </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Student Sections </title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,7 +57,7 @@ try{
             data-bs-toggle="modal" 
             data-bs-target="#addSubjectModal"
         >
-            Add Subject
+            Add Student Section
         </button>
     </div>
 
@@ -67,11 +66,11 @@ try{
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Subject</h5>
+                    <h5 class="modal-title">Add Student Section</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../../app/controllers/registrar/SubjectsController.php" method="post">
+                    <form action="../../../app/controllers/registrar/StudentSectionController.php" method="post">
                         <div class="mb-3">
                             <label for="subject_code" class="form-label">Subject Code</label>
                             <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="e.g., Fil-101" required>
@@ -79,11 +78,6 @@ try{
                         <div class="mb-3">
                             <label for="grade_level" class="form-label">Grade Level</label>
                             <input type="text" class="form-control" id="grade_level" name="grade_level" placeholder="e.g., 10" required>
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="subject_name" class="form-label">Subject Name</label>
-                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="e.g., Filipino" required>
                         </div>
                         <button type="submit" class="btn btn-primary" name="add_subject">Add Subject</button>
                     </form>
@@ -123,120 +117,42 @@ try{
     </div>
 
     <div class="card mt-4">
+
         <h5 class="card-header">Subjects</h5>
         <div class="table-responsive nowrap">
             <table class="table">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Subject Code</th>
-                        <th>Grade Level</th>
-                        <th>Subject Name</th>
+                        <th>Student Name</th>
+                        <th>Year & Section</th>
+                        <th>Assigned Teacher</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                        if(!empty($subjects)): 
-                    ?>
-                        <?php foreach($subjects as $subject): ?>
+                    <?php if(!empty($student_sections)): ?>
+                        <?php foreach($student_sections as $section): ?>
                             <tr>
-                                <td><?php echo $subject['id']; ?></td>
-                                <td><?php echo $subject['subject_code']; ?></td>
-                                <td><?php echo $subject['grade_level']; ?></td>
-                                <td><?php echo $subject['subject_name']; ?></td>
+                                <td><?php echo $section['id']; ?></td>
+                                <td><?php echo $section['student_name']; ?></td>
+                                <td><?php echo $section['school_year'] . ' - ' . $section['section_name']; ?></td>
+                                <td><?php echo $section['teacher_name']; ?></td>
                                 <td>
-                                    <button 
-                                        class="btn btn-sm btn-warning"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#editSubjectModal"
-                                        onclick="editSubjects(
-                                            '<?php echo $subject['id']; ?>',
-                                            '<?php echo $subject['subject_code']; ?>',
-                                            '<?php echo $subject['grade_level']; ?>',
-                                            '<?php echo $subject['subject_name']; ?>'
-                                        )";
-                                        >
-                                        Edit
-                                    </button>
-                                    <form action="../../../app/controllers/registrar/SubjectsController.php" method="post" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?php echo $subject['id']; ?>">
-                                        <button 
-                                            type="submit"
-                                            class="btn btn-sm btn-danger"
-                                            name="delete_subject"
-                                            onclick="return confirm('Are you sure you want to delete this subject?');"
-                                        >
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editSubjectModal" onclick="editSubject(<?php echo $section['id']; ?>)">Edit</button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteSubject(<?php echo $section['id']; ?>)">Delete</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" class="text-center">No subjects found.</td>
+                            <td colspan="5" class="text-center">No student sections found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
-
-        <!-- Pagination -->
-        <div class="card-footer" style="background-color: transparent; border: none; padding: 1rem 0;">
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center mb-3">
-                    <?php if ($current_page > 1): ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1">First</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
-                    </li>
-                    <?php else: ?>
-                    <li class="page-item disabled">
-                        <span class="page-link">First</span>
-                    </li>
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                    <?php endif; ?>
-
-                    <!-- Page numbers -->
-                    <?php
-                    $maxVisible = 5;
-                    $startPage = max(1, $current_page - floor($maxVisible / 2));
-                    $endPage = min($total_pages, $startPage + $maxVisible - 1);
-                    $startPage = max(1, $endPage - $maxVisible + 1);
-
-                    for ($i = $startPage; $i <= $endPage; $i++):
-                    ?>
-                    <li class="page-item <?php echo ($i === $current_page) ? 'active' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                    </li>
-                    <?php endfor; ?>
-
-                    <?php if ($current_page < $total_pages): ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?php echo $total_pages; ?>">Last</a>
-                    </li>
-                    <?php else: ?>
-                    <li class="page-item disabled">
-                        <span class="page-link">Next</span>
-                    </li>
-                    <li class="page-item disabled">
-                        <span class="page-link">Last</span>
-                    </li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-            <p class="text-muted mb-0">Showing <?php echo !empty($subjects) ? (($current_page - 1) * 10) + 1 : 0; ?> to <?php echo min($current_page * 10, $total_subjects); ?> of <?php echo $total_subjects; ?> subjects</p>
-        </div>
-
-
+    </div>
 
     <?php require_once __DIR__ . '/partials/footer.php'; ?>
     

@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../../../app/controllers/registrar/StudentGuardianController.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['registrar']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['registrar']);
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +54,6 @@ allowOnly(['registrar']);
         </div>
       </div>
       
-      <!-- Add Button sa Kanan -->
       <div class="col-md-6 text-end mt-2 mt-md-0">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Add Student/Guardian</button>
       </div>
