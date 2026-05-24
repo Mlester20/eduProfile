@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/../../../app/controllers/registrar/SubjectsController.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
+require_once __DIR__ . '/../../../app/middleware/Role.php';
 require_once __DIR__ . '/../../../database/config/config.php';
-allowOnly(['registrar']);
+AuthRole::allowOnly(['registrar']);
 
 try{
     $controller = new SubjectsController($con);
@@ -77,6 +77,11 @@ try{
                             <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="e.g., Fil-101" required>
                         </div>
                         <div class="mb-3">
+                            <label for="grade_level" class="form-label">Grade Level</label>
+                            <input type="text" class="form-control" id="grade_level" name="grade_level" placeholder="e.g., 10" required>
+
+                        </div>
+                        <div class="mb-3">
                             <label for="subject_name" class="form-label">Subject Name</label>
                             <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="e.g., Filipino" required>
                         </div>
@@ -103,6 +108,10 @@ try{
                             <input type="text" class="form-control" id="edit_subject_code" name="subject_code" required>
                         </div>
                         <div class="mb-3">
+                            <label for="edit_grade_level" class="form-label">Grade Level</label>
+                            <input type="text" class="form-control" id="edit_grade_level" name="grade_level" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="edit_subject_name" class="form-label">Subject Name</label>
                             <input type="text" class="form-control" id="edit_subject_name" name="subject_name" required>
                         </div>
@@ -121,6 +130,7 @@ try{
                     <tr>
                         <th>#</th>
                         <th>Subject Code</th>
+                        <th>Grade Level</th>
                         <th>Subject Name</th>
                         <th>Actions</th>
                     </tr>
@@ -133,6 +143,7 @@ try{
                             <tr>
                                 <td><?php echo $subject['id']; ?></td>
                                 <td><?php echo $subject['subject_code']; ?></td>
+                                <td><?php echo $subject['grade_level']; ?></td>
                                 <td><?php echo $subject['subject_name']; ?></td>
                                 <td>
                                     <button 
@@ -142,6 +153,7 @@ try{
                                         onclick="editSubjects(
                                             '<?php echo $subject['id']; ?>',
                                             '<?php echo $subject['subject_code']; ?>',
+                                            '<?php echo $subject['grade_level']; ?>',
                                             '<?php echo $subject['subject_name']; ?>'
                                         )";
                                         >

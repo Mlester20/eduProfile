@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['registrar']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['registrar']);
 
 // Active school year — update this when SY changes
 $activeSY = '2026–2027';

@@ -59,7 +59,7 @@ require_once __DIR__ . '/app/helpers/message.php';
 
               <form id="formAuthentication" class="mb-3" action="/app/controllers/Auth.php" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Username</label>
+                  <label for="email" class="form-label">Email</label>
                   <input
                     type="text"
                     class="form-control"
@@ -70,6 +70,7 @@ require_once __DIR__ . '/app/helpers/message.php';
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
+                  <label for="password" class="form-label">Password</label>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"

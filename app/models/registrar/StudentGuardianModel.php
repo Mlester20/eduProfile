@@ -54,7 +54,7 @@ require_once __DIR__ . '/../registrar/EnrollStudentsModel.php'; //fetch index of
                 $query = "INSERT INTO {$this->parents_guardians} (student_id, father_name, father_occupation, father_contact, mother_name, mother_occupation, mother_contact, guardian_name, guardian_relationship, guardian_contact, monthly_income) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $this->con->prepare($query);
                 $stmt->bind_param(
-                    'isssssssssii', 
+                    'isssssssssi', 
                     $data['student_id'], 
                     $data['father_name'], 
                     $data['father_occupation'], 

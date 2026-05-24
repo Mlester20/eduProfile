@@ -138,6 +138,7 @@ require_once __DIR__ . '/../../helpers/auditLogs.php';
             $controller->create(
                 [
                     'subject_code' => $_POST['subject_code'],
+                    'grade_level' => $_POST['grade_level'],
                     'subject_name' => $_POST['subject_name']
                 ]
             );
@@ -148,6 +149,7 @@ require_once __DIR__ . '/../../helpers/auditLogs.php';
                 $id,
                 [
                     'subject_code' => $_POST['subject_code'],
+                    'grade_level' => $_POST['grade_level'],
                     'subject_name' => $_POST['subject_name']
                 ]
             );

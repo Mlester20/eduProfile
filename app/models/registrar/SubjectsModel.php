@@ -45,9 +45,14 @@ require_once __DIR__ . '/../Model.php';
 
         public function create($data){
             try{
-                $query = "INSERT INTO {$this->subjects} (subject_code, subject_name) VALUES (?, ?) ";
+                $query = "INSERT INTO {$this->subjects} (subject_code, grade_level, subject_name) VALUES (?, ?, ?)";
                 $stmt = $this->con->prepare($query);
-                $stmt->bind_param('ss', $data['subject_code'], $data['subject_name']);
+                $stmt->bind_param(
+                    'sss', 
+                    $data['subject_code'], 
+                    $data['grade_level'], 
+                    $data['subject_name']
+                );
                 $stmt->execute();
                 return true;
             }catch(Exception $e){
@@ -57,9 +62,9 @@ require_once __DIR__ . '/../Model.php';
 
         public function update($id, $data){
             try{
-                $query = "UPDATE {$this->subjects} SET subject_code = ?, subject_name = ? WHERE id = ?";
+                $query = "UPDATE {$this->subjects} SET subject_code = ?, grade_level = ?, subject_name = ? WHERE id = ?";
                 $stmt = $this->con->prepare($query);
-                $stmt->bind_param('ssi', $data['subject_code'], $data['subject_name'], $id);
+                $stmt->bind_param('sssi', $data['subject_code'], $data['grade_level'], $data['subject_name'], $id);
                 $stmt->execute();   
                 return true;
             }catch(Exception $e){
