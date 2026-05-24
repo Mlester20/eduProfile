@@ -48,6 +48,10 @@ require_once __DIR__ . '/../../../database/config/config.php';
             return $this->model->getAvailableTeachers();
         }
 
+        public function getAllTeachers(){
+            return $this->model->getAllTeachers();
+        }
+
         public function getActiveSchoolYear(){
             return $this->model->getActiveSchoolYear();
         }
@@ -58,7 +62,26 @@ require_once __DIR__ . '/../../../database/config/config.php';
 
         public function update($id, $data){
             try{
+                if($this->model->update($id, $data)){
+                    $user_id = $_SESSION['user']['id'] ?? null;
+                    $role = $_SESSION['user']['role'] ?? null;
+                    $this->auditLogs->log(
+                        $user_id,
+                        $role,
+                        'Updated section with ID: ' . $id,
+                        $id,
+                        'sections',
+                        'updated a section id: ' . $id
+                    );
 
+                    setFlash('success', 'Section updated successfully.');
+                    header("Location: ../../../resources/views/registrar/sections.php");
+                    exit();
+                }else{
+                    setFlash('error', 'Failed to update section. Please try again.');
+                    header("Location: ../../../resources/views/registrar/sections.php");
+                    exit();
+                }
             }catch(Exception $e){
                 throw new Exception("Error " . $e->getMessage(), 500);
             }
@@ -103,11 +126,24 @@ require_once __DIR__ . '/../../../database/config/config.php';
                         'grade_level' => $_POST['grade_level'],
                         'adviser_id' => $_POST['adviser_id'],
                         'school_year_id' => $_POST['school_year_id'],
-                        'max_students' => 30
+                        'max_students' => $_POST['max_students'] ?? 35
                     ]
                 );
                 exit();
             }
+            
+            if(isset($_POST['update_section'])){
+                $update_id = $_POST['id'];
+                $controller->update($update_id, [
+                    'section_name' => $_POST['section_name'],
+                    'grade_level' => $_POST['grade_level'],
+                    'adviser_id' => $_POST['adviser_id'],
+                    'school_year_id' => $_POST['school_year_id'],
+                    'max_students' => $_POST['max_students'] ?? 35
+                ]);
+                exit();
+            }
+
             if(isset($_POST['delete_section'])){
                 $delete_id = $_POST['delete_section'];
                 $controller->delete($delete_id);
@@ -118,6 +154,7 @@ require_once __DIR__ . '/../../../database/config/config.php';
         // Fetch data after POST handling
         $sections = $controller->index();
         $teachers = $controller->getAvailableTeachers();
+        $allTeachers = $controller->getAllTeachers(); // For edit modal
         $sy = $controller->getActiveSchoolYear();
         
         // Add total students count for each section

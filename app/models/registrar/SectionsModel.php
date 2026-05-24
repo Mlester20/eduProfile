@@ -49,6 +49,21 @@ require_once __DIR__ . '/../Model.php';
             }
         }
 
+        public function getAllTeachers(){
+            try{
+                $query = "SELECT * FROM {$this->users} 
+                          WHERE role = 'teacher' 
+                          ORDER BY full_name";
+                $stmt = $this->con->prepare($query);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                return $result->fetch_all(MYSQLI_ASSOC);
+            }catch(Exception $e){
+                error_log('Get all teachers error: ' . $e->getMessage());
+                return [];
+            }
+        }
+
         //function to calculate and return as total count of students in one section
         public function totalStudents($section_id){
             $query = "SELECT COUNT(DISTINCT s.id) AS total 
@@ -80,7 +95,7 @@ require_once __DIR__ . '/../Model.php';
                 $query = "UPDATE {$this->sections} SET section_name = ?, grade_level = ?, adviser_id = ?, school_year_id = ?, max_students = ? WHERE id = ?";
                 $stmt = $this->con->prepare($query);
                 $stmt->bind_param(
-                    "ssiiiii",
+                    "ssiiii",
                     $data['section_name'],
                     $data['grade_level'],
                     $data['adviser_id'],

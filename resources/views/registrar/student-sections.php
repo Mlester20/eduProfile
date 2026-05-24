@@ -5,10 +5,6 @@ require_once __DIR__ . '/../../../app/middleware/Role.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 AuthRole::allowOnly(['registrar']);
 
-// debugging output
-echo "<pre>";
-print_r($sections);
-echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +57,7 @@ echo "</pre>";
         </button>
     </div>
 
-    <!-- add subject modal -->
+    <!-- add student section modal -->
     <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -72,44 +68,69 @@ echo "</pre>";
                 <div class="modal-body">
                     <form action="../../../app/controllers/registrar/StudentSectionController.php" method="post">
                         <div class="mb-3">
-                            <label for="subject_code" class="form-label">Subject Code</label>
-                            <input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="e.g., Fil-101" required>
+                            <label for="student_id" class="form-label">Student Name</label>
+                            <select class="form-control" id="student_id" name="student_id" required>
+                                <option value="">Select Student</option>
+                                <?php foreach($students as $student): ?>
+                                    <option value="<?php echo $student['id']; ?>">
+                                        <?php echo $student['first_name'] . ' ' . $student['last_name']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="grade_level" class="form-label">Grade Level</label>
-                            <input type="text" class="form-control" id="grade_level" name="grade_level" placeholder="e.g., 10" required>
+                            <label for="section_id" class="form-label">Section</label>
+                            <select class="form-control" id="section_id" name="section_id" required>
+                                <option value="">Select Section</option>
+                                <?php foreach($sections as $section): ?>
+                                    <option value="<?php echo $section['id']; ?>">
+                                        <?php echo $section['section_info']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="add_subject">Add Subject</button>
+                        <button type="submit" class="btn btn-primary" name="add_student_section">Add Student Section</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- edit subject modal -->
-    <div class="modal fade" id="editSubjectModal" tabindex="-1" aria-hidden="true">
+    <!-- edit student section modal -->
+    <div class="modal fade" id="editStudentSectionModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Subject</h5>
+                    <h5 class="modal-title">Edit Student Section</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../../app/controllers/registrar/SubjectsController.php" method="post">
-                        <input type="hidden" id="edit_subject_id" name="id">
+                    <form action="../../../app/controllers/registrar/StudentSectionController.php" method="post">
+                        <input type="hidden" id="edit-student-section-id" name="id">
+                        <!-- return readonly to avoid duplicating student section -->
                         <div class="mb-3">
-                            <label for="edit_subject_code" class="form-label">Subject Code</label>
-                            <input type="text" class="form-control" id="edit_subject_code" name="subject_code" required>
+                            <label for="edit-student-id" class="form-label">Student</label>
+                            <select class="form-control" id="edit-student-id" name="student_id" required>
+                                <option value="">Select Student</option>
+                                <?php foreach($all_students as $student): ?>
+                                    <option value="<?php echo $student['id']; ?>">
+                                        <?php echo $student['first_name'] . ' ' . $student['last_name']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_grade_level" class="form-label">Grade Level</label>
-                            <input type="text" class="form-control" id="edit_grade_level" name="grade_level" required>
+                            <label for="edit-section-id" class="form-label">Section</label>
+                            <select class="form-control" id="edit-section-id" name="section_id" required>
+                                <option value="">Select Section</option>
+                                <?php foreach($all_sections as $section): ?>
+                                    <option value="<?php echo $section['id']; ?>">
+                                        <?php echo $section['section_info']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="edit_subject_name" class="form-label">Subject Name</label>
-                            <input type="text" class="form-control" id="edit_subject_name" name="subject_name" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="update_subject">Update Subject</button>
+                        <button type="submit" class="btn btn-primary" name="update_student_section">Update Student Section</button>
                     </form>
                 </div>
             </div>
@@ -118,7 +139,7 @@ echo "</pre>";
 
     <div class="card mt-4">
 
-        <h5 class="card-header">Subjects</h5>
+        <h5 class="card-header">Student Sections</h5>
         <div class="table-responsive nowrap">
             <table class="table">
                 <thead>
@@ -138,10 +159,29 @@ echo "</pre>";
                                 <td><?php echo $section['student_name']; ?></td>
                                 <td><?php echo $section['school_year'] . ' - ' . $section['section_name']; ?></td>
                                 <td><?php echo $section['teacher_name']; ?></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editSubjectModal" onclick="editSubject(<?php echo $section['id']; ?>)">Edit</button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteSubject(<?php echo $section['id']; ?>)">Delete</button>
-                                </td>
+                                    <td class="d-flex gap-1 align-items-center">
+                                        <button 
+                                            class="btn btn-sm btn-primary" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#editStudentSectionModal" 
+                                            onclick="editStudentSection(<?php echo $section['id']; ?>, 
+                                            <?php echo $section['student_id']; ?>, 
+                                            <?php echo $section['section_id']; ?>)">
+                                            Edit
+                                        </button>
+                                        
+                                        <form action="../../../app/controllers/registrar/StudentSectionController.php" method="post" class="d-inline">
+                                            <input type="hidden" name="id" value="<?php echo $section['id']; ?>">
+                                            <button 
+                                                type="submit" 
+                                                class="btn btn-sm btn-danger" 
+                                                name="delete_student_section" 
+                                                onclick="return confirm('Are you sure you want to delete this student section?')"
+                                            >
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -151,6 +191,64 @@ echo "</pre>";
                     <?php endif; ?>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="card-footer">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <small class="text-muted">
+                        Showing <?php echo !empty($student_sections) ? (($current_page - 1) * $items_per_page + 1) : 0; ?> 
+                        to 
+                        <?php echo min($current_page * $items_per_page, $total_items); ?> 
+                        of <?php echo $total_items; ?> entries
+                    </small>
+                </div>
+                <div class="col-md-6">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-sm justify-content-end mb-0">
+                            <!-- Previous Button -->
+                            <li class="page-item <?php echo $current_page <= 1 ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo max(1, $current_page - 1); ?>">Previous</a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <?php
+                            $start_page = max(1, $current_page - 2);
+                            $end_page = min($total_pages, $current_page + 2);
+
+                            if($start_page > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">1</a>
+                                </li>
+                                <?php if($start_page > 2): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif;
+                            endif;
+
+                            for($page = $start_page; $page <= $end_page; $page++): ?>
+                                <li class="page-item <?php echo $page === $current_page ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                                </li>
+                            <?php endfor;
+
+                            if($end_page < $total_pages): ?>
+                                <?php if($end_page < $total_pages - 1): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<?php echo $total_pages; ?>"><?php echo $total_pages; ?></a>
+                                </li>
+                            <?php endif; ?>
+
+                            <!-- Next Button -->
+                            <li class="page-item <?php echo $current_page >= $total_pages ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo min($total_pages, $current_page + 1); ?>">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -165,7 +263,7 @@ echo "</pre>";
     <script src="../../../public/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="../../../public/assets/js/main.js"></script>
     <script src="../../../public/assets/js/dashboards-analytics.js"></script>
-    <script src="../../../public/js/registrar/subjects.js"></script>
+    <script src="../../../public/js/registrar/student-section.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

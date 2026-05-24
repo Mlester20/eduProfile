@@ -125,6 +125,77 @@ AuthRole::allowOnly(['registrar']);
       </div>
     </div>
 
+    <!-- edit section modal -->
+    <div class="modal fade" id="editSectionModal" tabindex="-1" aria-labelledby="editSectionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="../../../app/controllers/registrar/SectionsController.php" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editSectionModalLabel">Edit Section</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="edit_section_id" name="id">
+              <div class="mb-3">
+                <label for="edit_section_name" class="form-label">Section Name</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="edit_section_name" 
+                  name="section_name" 
+                  placeholder="e.g., Mahogany" 
+                  required
+                >
+              </div>
+              <div class="mb-3">
+                <label for="edit_section_grade_level" class="form-label">Grade Level</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="edit_section_grade_level" 
+                  name="grade_level" 
+                  placeholder="e.g., Grade 5" 
+                  required
+                >
+              </div>
+              <!-- dropdown for teacher assignment -->
+              <div class="mb-3">
+                <label for="edit_adviser_id" class="form-label">Adviser</label>
+                <select class="form-select" id="edit_adviser_id" name="adviser_id" required>
+                  <option value="">Select Adviser</option>
+                  <?php foreach($allTeachers as $teacher): ?> 
+                    <option value="<?php echo $teacher['id']; ?>">
+                      <?php echo htmlspecialchars($teacher['full_name']); ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <!-- dropdown for current school year -->
+              <div class="mb-3">
+                <label for="edit_school_year_id" class="form-label">School Year</label>
+                <select class="form-select" id="edit_school_year_id" name="school_year_id" required>
+                  <option value="">Select School Year</option>
+                  <?php if($sy): ?>
+                    <option value="<?php echo $sy['id']; ?>">
+                      <?php echo htmlspecialchars($sy['school_year']); ?>
+                    </option>
+                  <?php endif; ?>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary" name="update_section">
+                Update Section
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="card mt-4">
       <h5 class="card-header">Sections</h5>
       <div class="table-responsive nowrap">
@@ -153,7 +224,20 @@ AuthRole::allowOnly(['registrar']);
                   <td><?php echo $section['school_year']; ?></td>
                   <td><?php echo $section['total_students']; ?></td>
                   <td>
-                    <button class="btn btn-sm btn-primary">Edit</button>
+                  <button 
+                    class="btn btn-sm btn-primary"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#editSectionModal"
+                    onclick="editFunction(
+                      <?php echo $section['id']; ?>,
+                      '<?php echo addslashes(htmlspecialchars($section['section_name'])); ?>',
+                      '<?php echo addslashes(htmlspecialchars($section['grade_level'])); ?>',
+                      <?php echo $section['adviser_id']; ?>,
+                      <?php echo $section['school_year_id']; ?>
+                    )"
+                  >
+                    Edit
+                  </button>
 
                     <form method="POST" action="../../../app/controllers/registrar/SectionsController.php" style="display: inline;">
                       <input type="hidden" name="delete_section" value="<?php echo $section['id']; ?>">
@@ -186,5 +270,6 @@ AuthRole::allowOnly(['registrar']);
     <script src="../../../public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../../../public/assets/vendor/js/menu.js"></script>
     <script src="../../../public/assets/js/main.js"></script>
+    <script src="../../../public/js/registrar/sections.js"></script>
 </body>
 </html>

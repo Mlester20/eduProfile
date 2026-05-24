@@ -96,7 +96,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
             <li class="menu-item">
               <a href="student-sections.php" class="menu-link">
-                <div data-i18n="Error">Create Section</div>
+                <div data-i18n="Error">Create Student Section</div>
               </a>
             </li>
           </ul>
