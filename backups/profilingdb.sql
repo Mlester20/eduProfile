@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2026 at 06:44 PM
+-- Generation Time: May 24, 2026 at 08:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,21 @@ INSERT INTO `audit_logs` (`id`, `user_id`, `role`, `action`, `module`, `referenc
 (56, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-19 14:40:38'),
 (57, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-19 16:04:56'),
 (58, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-19 16:09:37'),
-(59, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-19 16:21:35');
+(59, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-19 16:21:35'),
+(60, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-21 06:06:04'),
+(61, 14, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 2 logged in', '::1', 'success', '2026-05-21 06:38:42'),
+(62, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 1 logged in', '::1', 'success', '2026-05-21 06:42:38'),
+(63, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-21 06:44:57'),
+(64, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-21 06:46:58'),
+(65, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 01:30:44'),
+(66, 15, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'teacher 3 logged in', '::1', 'success', '2026-05-22 02:25:53'),
+(67, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 02:26:49'),
+(68, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 02:28:28'),
+(69, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 13:05:50'),
+(70, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 13:20:36'),
+(71, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 05:20:51'),
+(72, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-24 05:33:58'),
+(73, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 05:49:26');
 
 -- --------------------------------------------------------
 
@@ -171,6 +185,7 @@ CREATE TABLE `students` (
   `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) DEFAULT NULL,
   `suffix` varchar(20) DEFAULT NULL,
+  `grade_level` varchar(50) NOT NULL,
   `gender` enum('Male','Female') DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
@@ -189,18 +204,28 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `lrn`, `first_name`, `middle_name`, `last_name`, `suffix`, `gender`, `birth_date`, `age`, `place_of_birth`, `nationality`, `religion`, `address`, `contact_number`, `email`, `profile_photo`, `enrollment_status`, `created_at`) VALUES
-(2, '20242111365', 'Mark Lester ', 'Suguitan', 'Raguindin', '', 'Male', '2002-12-20', 9, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Rizal, Roxas, Isabela', '09349991034', '', 'Array', 'Enrolled', '2026-05-11 13:07:26'),
-(3, '2026000001', 'Mark', 'Santos', 'Reyes', NULL, 'Male', '2012-05-14', 14, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09171234567', 'mark.reyes@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(4, '2026000002', 'Angela', 'Lopez', 'Cruz', NULL, 'Female', '2011-09-22', 15, 'Tuguegarao City, Cagayan', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09181234567', 'angela.cruz@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(5, '2026000003', 'Joshua', 'Rivera', 'Fernandez', NULL, 'Male', '2013-01-10', 13, 'Santiago City, Isabela', 'Filipino', 'Iglesia ni Cristo', 'Cabagan, Isabela', '09191234567', 'joshua.fernandez@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(6, '2026000004', 'Sophia', 'Garcia', 'Mendoza', NULL, 'Female', '2012-07-18', 14, 'Cauayan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09201234567', 'sophia.mendoza@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(7, '2026000005', 'Daniel', 'Torres', 'Villanueva', 'Jr.', 'Male', '2011-11-30', 15, 'Aparri, Cagayan', 'Filipino', 'Born Again Christian', 'Roxas, Isabela', '09211234567', 'daniel.v@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(8, '2026000006', 'Kimberly', 'Aquino', 'Santiago', NULL, 'Female', '2013-03-25', 13, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'San Mateo, Isabela', '09221234567', 'kimberly.santiago@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(9, '2026000007', 'Nathan', 'Perez', 'Domingo', NULL, 'Male', '2012-12-05', 14, 'Echague, Isabela', 'Filipino', 'Roman Catholic', 'Jones, Isabela', '09231234567', 'nathan.domingo@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(10, '2026000008', 'Beatrice', 'Castro', 'Flores', NULL, 'Female', '2011-08-16', 15, 'Naguilian, Isabela', 'Filipino', 'Methodist', 'Luna, Isabela', '09241234567', 'beatrice.flores@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(11, '2026000009', 'Christian', 'Ramos', 'De Leon', NULL, 'Male', '2012-02-08', 14, 'Gamu, Isabela', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09251234567', 'christian.deleon@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(12, '2026000010', 'Patricia', 'Navarro', 'Salvador', NULL, 'Female', '2013-06-27', 13, 'Reina Mercedes, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09261234567', 'patricia.salvador@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14');
+INSERT INTO `students` (`id`, `lrn`, `first_name`, `middle_name`, `last_name`, `suffix`, `grade_level`, `gender`, `birth_date`, `age`, `place_of_birth`, `nationality`, `religion`, `address`, `contact_number`, `email`, `profile_photo`, `enrollment_status`, `created_at`) VALUES
+(2, '20242111365', 'Mark Lester ', 'Suguitan', 'Raguindin', '', 'Grade 1', 'Male', '2002-12-20', 9, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Rizal, Roxas, Isabela', '09349991034', '', 'Array', 'Enrolled', '2026-05-11 13:07:26'),
+(3, '2026000001', 'Mark', 'Santos', 'Reyes', NULL, 'Grade 1', 'Male', '2012-05-14', 14, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09171234567', 'mark.reyes@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(4, '2026000002', 'Angela', 'Lopez', 'Cruz', NULL, 'Grade 1', 'Female', '2011-09-22', 15, 'Tuguegarao City, Cagayan', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09181234567', 'angela.cruz@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(5, '2026000003', 'Joshua', 'Rivera', 'Fernandez', NULL, 'Grade 1', 'Male', '2013-01-10', 13, 'Santiago City, Isabela', 'Filipino', 'Iglesia ni Cristo', 'Cabagan, Isabela', '09191234567', 'joshua.fernandez@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(6, '2026000004', 'Sophia', 'Garcia', 'Mendoza', NULL, 'Grade 1', 'Female', '2012-07-18', 14, 'Cauayan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09201234567', 'sophia.mendoza@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(7, '2026000005', 'Daniel', 'Torres', 'Villanueva', 'Jr.', 'Grade 1', 'Male', '2011-11-30', 15, 'Aparri, Cagayan', 'Filipino', 'Born Again Christian', 'Roxas, Isabela', '09211234567', 'daniel.v@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(8, '2026000006', 'Kimberly', 'Aquino', 'Santiago', NULL, 'Grade 1', 'Female', '2013-03-25', 13, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'San Mateo, Isabela', '09221234567', 'kimberly.santiago@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(9, '2026000007', 'Nathan', 'Perez', 'Domingo', NULL, 'Grade 1', 'Male', '2012-12-05', 14, 'Echague, Isabela', 'Filipino', 'Roman Catholic', 'Jones, Isabela', '09231234567', 'nathan.domingo@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(10, '2026000008', 'Beatrice', 'Castro', 'Flores', NULL, 'Grade 1', 'Female', '2011-08-16', 15, 'Naguilian, Isabela', 'Filipino', 'Methodist', 'Luna, Isabela', '09241234567', 'beatrice.flores@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(11, '2026000009', 'Christian', 'Ramos', 'De Leon', NULL, 'Grade 1', 'Male', '2012-02-08', 14, 'Gamu, Isabela', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09251234567', 'christian.deleon@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(12, '2026000010', 'Patricia', 'Navarro', 'Salvador', NULL, 'Grade 1', 'Female', '2013-06-27', 13, 'Reina Mercedes, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09261234567', 'patricia.salvador@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
+(13, '118765432101', 'Juan', 'Santos', 'Dela Cruz', NULL, 'Grade 1', 'Male', '2013-05-14', 11, 'Quezon City', 'Filipino', 'Catholic', 'Brgy. San Isidro, Luna, Isabela', '09171234567', 'juan.delacruz@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(14, '118765432102', 'Maria', 'Reyes', 'Lopez', NULL, 'Grade 1', 'Female', '2012-11-20', 12, 'Ilagan City', 'Filipino', 'Catholic', 'Brgy. Lallayug, Luna, Isabela', '09181234567', 'maria.lopez@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(15, '118765432103', 'Mark', 'Villanueva', 'Garcia', NULL, 'Grade 1', 'Male', '2014-02-09', 10, 'Tuguegarao City', 'Filipino', 'INC', 'Brgy. Macatel, Luna, Isabela', '09191234567', 'mark.garcia@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(16, '118765432104', 'Angela', 'Torres', 'Ramos', NULL, 'Grade 1', 'Female', '2013-08-25', 11, 'Santiago City', 'Filipino', 'Catholic', 'Brgy. Abbag, Luna, Isabela', '09201234567', 'angela.ramos@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(17, '118765432105', 'Joshua', 'Fernandez', 'Mendoza', 'Jr.', 'Grade 1', 'Male', '2012-03-18', 12, 'Cauayan City', 'Filipino', 'Born Again', 'Brgy. Union, Luna, Isabela', '09211234567', 'joshua.mendoza@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(18, '118765432106', 'Christine', 'Aquino', 'Castro', NULL, 'Grade 1', 'Female', '2014-07-11', 10, 'Aparri, Cagayan', 'Filipino', 'Catholic', 'Brgy. Luyao, Luna, Isabela', '09221234567', 'christine.castro@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(19, '118765432107', 'Daniel', 'Perez', 'Navarro', NULL, 'Grade 1', 'Male', '2013-01-30', 11, 'Naguilian, Isabela', 'Filipino', 'Baptist', 'Brgy. Mambabanga, Luna, Isabela', '09231234567', 'daniel.navarro@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(20, '118765432108', 'Sophia', 'Manalo', 'Bautista', NULL, 'Grade 1', 'Female', '2012-09-05', 12, 'Cabagan, Isabela', 'Filipino', 'Catholic', 'Brgy. Centro, Luna, Isabela', '09241234567', 'sophia.bautista@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(21, '118765432109', 'Kevin', 'Flores', 'Diaz', NULL, 'Grade 1', 'Male', '2014-04-27', 10, 'Roxas, Isabela', 'Filipino', 'Catholic', 'Brgy. Salvacion, Luna, Isabela', '09251234567', 'kevin.diaz@example.com', 'default.png', 'Transferred', '2026-05-22 03:45:03'),
+(22, '118765432110', 'Patricia', 'Morales', 'Gonzales', '', 'Grade 6', 'Female', '2013-12-15', 11, 'Tumauini, Isabela', 'Filipino', 'Methodist', 'Brgy. Nannarian, Luna, Isabela', '09261234567', 'patricia.gonzales@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03');
 
 -- --------------------------------------------------------
 
@@ -267,10 +292,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_picture`, `created_at`, `updated_at`) VALUES
 (3, 'Administrative', 'administrative@gmail.com', '$2y$10$CQASCJeXsOYOvWm4kK03i.S1SxUWsdPMv56Qlz04eq0GazfxE8FSi', 'administrative', 'storage/profiles/pfp_3_1778323470.jpg', '2026-05-09', '2026-05-09'),
 (4, 'admin', 'admin@gmail.com', '$2y$10$ihbCVd8WOJO17B4BFQgAUORhb1UEYpIFmpd1Q/ShW6n5uNMkLZ7kq', 'admin', '8.jpg', '2026-05-09', '2026-05-09'),
-(5, 'teacher 1', 'teacher@gmail.com', '$2y$10$JIgDIhgM0PF2mpHSeNWEk.EwMUrAhweKqBinP9shLxyInzdhrbwbe', 'teacher', NULL, '2026-05-10', '2026-05-10'),
+(5, 'Jennifer J. Upton', 'teacher@gmail.com', '$2y$10$JIgDIhgM0PF2mpHSeNWEk.EwMUrAhweKqBinP9shLxyInzdhrbwbe', 'teacher', 'storage/profiles/pfp_5_1779345881.png', '2026-05-10', '2026-05-21'),
 (13, 'Registrar', 'registrar@gmail.com', '$2y$10$IEz8YAjPkN2ddoQTR6YRUupEwnweJ6YNzsl8opZsKoXrMMFkaJYZG', 'registrar', NULL, '2026-05-15', '0000-00-00'),
 (14, 'teacher 2', 'teacher1@gmail.com', '$2y$10$1LxuNhIoGyP5pgS2rnMGheE2vsCuzAQqAqSHqqSkTl6DHBeXaH.pm', 'teacher', NULL, '2026-05-19', '2026-05-19'),
-(15, 'teacher 3', 'teacher3@gmail.com', '$2y$10$MH6VDut/tBSlLmu23a55geQaSo08Yplt7XPdXEg2yFKU38qfc4Mdu', 'teacher', NULL, '2026-05-19', '2026-05-19'),
+(15, 'John Doe', 'teacher3@gmail.com', '$2y$10$MH6VDut/tBSlLmu23a55geQaSo08Yplt7XPdXEg2yFKU38qfc4Mdu', 'teacher', 'storage/profiles/pfp_15_1779416785.png', '2026-05-19', '2026-05-22'),
 (16, 'teacher 4', 'teacher4@gmail.com', '$2y$10$1kGUkbDy5q4l9wL.g6YlW.RdTV2sgmoOiCNdpmezmoXzfJ9nRTCi.', 'teacher', NULL, '2026-05-19', '2026-05-19');
 
 --
@@ -349,7 +374,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `parents_guardians`
@@ -367,7 +392,7 @@ ALTER TABLE `school_year`
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `section_subjects`
@@ -379,13 +404,13 @@ ALTER TABLE `section_subjects`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `student_sections`
 --
 ALTER TABLE `student_sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `subjects`
