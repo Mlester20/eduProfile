@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../../../app/controllers/registrar/SectionSubjectController.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/middleware/Role.php';
