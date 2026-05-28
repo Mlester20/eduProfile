@@ -29,3 +29,12 @@ require_once __DIR__ . '/../../../database/config/config.php';
 
         }
     }
+
+    try{
+        $sectionSubjectController = new SectionSubjectController($con);
+        $sectionSubjects = $sectionSubjectController->index();
+
+        //implement the create, update, and delete functions via check if statements and $_POST data
+    }catch(Exception $e){
+        echo $e->getMessage();
+    }

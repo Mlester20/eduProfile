@@ -19,9 +19,9 @@ require_once __DIR__ . '/app/helpers/message.php';
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/app/helpers/title.php'; ?> | Sign In</title>
+    <title><?php require_once __DIR__ . '/app/helpers/title.php'; ?> | Sign In</title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="public/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="public/assets/img/favicon/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -41,66 +41,74 @@ require_once __DIR__ . '/app/helpers/message.php';
 
     <?php showFlash(); ?>
 
-    <!-- Content -->
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-          <!-- Register -->
+
           <div class="card">
             <div class="card-body">
+
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <a href="index.php" class="app-brand-link gap-2">
-                  <span class="app-brand-text demo text-body fw-bolder">Edu Profiling</span>
-                </a>
-              </div>
+              <!-- <div class="app-brand justify-content-center">
+                <div class="brand-icon-wrap">
+                  <img src="public/assets/img/favicon/logo.png" alt="Logo" class="brand-logo" />
+                </div>
+              </div> -->
               <!-- /Logo -->
-              <p class="mb-4">Please sign-in to your account to start your session</p>
+
+              <h1 class="auth-title">EduProfile</h1>
+              
+              <hr class="auth-divider" />
+              <p class="auth-desc">Sign in to your account to access the student profiling system.</p>
 
               <form id="formAuthentication" class="mb-3" action="/app/controllers/Auth.php" method="POST">
+
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    autofocus
-                  />
+                  <label for="email" class="auth-label">Email Address</label>
+                  <div class="input-icon-wrap">
+                    <span class="input-icon"><i class='bx bx-envelope'></i></span>
+                    <input
+                      type="text"
+                      class="form-control auth-input"
+                      id="email"
+                      name="email"
+                      placeholder="you@school.edu.ph"
+                      autofocus
+                    />
+                  </div>
                 </div>
-                <div class="mb-3 form-password-toggle">
-                  <label for="password" class="form-label">Password</label>
-                  <div class="input-group input-group-merge">
+
+                <div class="mb-3">
+                  <label for="password" class="auth-label">Password</label>
+                  <div class="input-icon-wrap">
+                    <span class="input-icon"><i class='bx bx-lock'></i></span>
                     <input
                       type="password"
                       id="password"
-                      class="form-control"
+                      class="form-control auth-input"
                       name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
+                      placeholder="··········"
                     />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    <span class="input-icon-right toggle-password" onclick="togglePassword()" style="cursor:pointer;">
+                      <i class='bx bx-hide' id="toggleIcon"></i>
+                    </span>
                   </div>
                 </div>
+
                 <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div>
+                  <button class="btn auth-btn w-100" type="submit">Sign in</button>
                 </div>
-                <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-                </div>
+
               </form>
+              <p class="auth-school">San Jose Sur Elementary</p>
+              <p class="auth-footer-text">Mallig District &nbsp;•&nbsp; DepEd Region II</p>
+
             </div>
           </div>
-          <!-- /Register -->
+
         </div>
       </div>
     </div>
-
-    <!-- / Content -->
 
     <script src="public/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="public/assets/vendor/libs/popper/popper.js"></script>
@@ -109,5 +117,18 @@ require_once __DIR__ . '/app/helpers/message.php';
     <script src="public/assets/vendor/js/menu.js"></script>
     <script src="public/assets/js/main.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+      function togglePassword() {
+        const pw = document.getElementById('password');
+        const icon = document.getElementById('toggleIcon');
+        if (pw.type === 'password') {
+          pw.type = 'text';
+          icon.classList.replace('bx-hide', 'bx-show');
+        } else {
+          pw.type = 'password';
+          icon.classList.replace('bx-show', 'bx-hide');
+        }
+      }
+    </script>
 </body>
 </html>
