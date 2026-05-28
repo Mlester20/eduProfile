@@ -83,7 +83,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <!-- Sections -->
-        <li class="menu-item <?php echo ($currentPage === 'sections.php') || ($currentPage === 'student-sections.php') ? 'active' : '';  ?>">
+        <li class="menu-item <?php echo ($currentPage === 'sections.php') || ($currentPage === 'student-sections.php') || ($currentPage === 'section-subjects.php') ? 'active' : '';  ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-grid-alt"></i>
             <div data-i18n="Sections">Sections</div>
@@ -94,11 +94,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <div data-i18n="Error">Manage Sections</div>
               </a>
             </li>
+
             <li class="menu-item">
               <a href="student-sections.php" class="menu-link">
                 <div data-i18n="Error">Create Student Section</div>
               </a>
             </li>
+
+            <li class="menu-item">
+              <a href="section-subjects.php" class="menu-link">
+                <div data-i18n="Error">Section Subjects</div>
+              </a>
+            </li>
+
           </ul>
         </li>
       </ul>

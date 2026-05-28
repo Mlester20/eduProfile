@@ -1,8 +1,10 @@
 <?php
 session_start();
-
+require_once __DIR__ . '/../../../app/controllers/registrar/SectionSubjectController.php';
+require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/middleware/Role.php';
-AuthRole::allowOnly(['teacher']);
+AuthRole::allowOnly(['registrar']);
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ AuthRole::allowOnly(['teacher']);
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | My Students </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Sections </title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,26 +36,26 @@ AuthRole::allowOnly(['teacher']);
     <link rel="stylesheet" href="../../../public/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="../../../public/assets/css/demo.css" />
     <link rel="stylesheet" href="../../../../public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../../public/assets/vendor/libs/apex-charts/apex-charts.css" />
     <script src="../../../public/assets/vendor/js/helpers.js"></script>
     <script src="../../../public/assets/js/config.js"></script>
-  </head>
+</head>
 <body>
-   
+
+    <?php showFlash(); ?>
+
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
 
+   
+
     <?php require_once __DIR__ . '/partials/footer.php'; ?>
-    
 
     <script src="../../../public/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../../../public/assets/vendor/libs/popper/popper.js"></script>
     <script src="../../../public/assets/vendor/js/bootstrap.js"></script>
     <script src="../../../public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../../../public/assets/vendor/js/menu.js"></script>
-    <script src="../../../public/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="../../../public/assets/js/main.js"></script>
-    <script src="../../../public/assets/js/dashboards-analytics.js"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="../../../public/js/registrar/sections.js"></script>
 </body>
 </html>

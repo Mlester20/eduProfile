@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../../services/ParentGuardiansService.php';
+require_once __DIR__ . '/../../../database/config/config.php';
+
 header('Content-Type: application/json');
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -23,9 +26,6 @@ if (!isset($_GET['q']) || empty(trim($_GET['q']))) {
     echo json_encode(['success' => false, 'message' => 'Search query is required']);
     exit();
 }
-
-require_once __DIR__ . '/../../services/ParentGuardiansService.php';
-require_once __DIR__ . '/../../../database/config/config.php';
 
 try {
     $keyword = trim($_GET['q']);

@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../../app/middleware/auth.php';
+require_once __DIR__ . '/../../../app/middleware/Role.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/models/UpdateProfileModel.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 
-allowOnly(['admin']); 
+AuthRole::allowOnly(['admin']);
 
 // Get user profile data
 $updateProfileModel = new UpdateProfileModel($con);

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../app/controllers/admin/AuditLogsController.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['admin']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['admin']);
 ?>
 
 <!DOCTYPE html>
