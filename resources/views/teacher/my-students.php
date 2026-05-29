@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+require_once __DIR__ . '/../../../app/controllers/teacher/StudentsListController.php';
 require_once __DIR__ . '/../../../app/middleware/Role.php';
 AuthRole::allowOnly(['teacher']);
 ?>
@@ -42,6 +41,42 @@ AuthRole::allowOnly(['teacher']);
    
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
+
+    <div class="card">
+      <h5 class="card-header">My Students</h5>
+      <div class="table-responsive text-nowrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Section</th>
+              <th>School Year</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php if(!empty($students)): ?>
+              <?php foreach($students as $index => $student): ?>
+                <tr>
+                  <td><?php echo $index + 1; ?></td>
+                  <td><?php echo htmlspecialchars($student['full_name']); ?></td>
+                  <td><?php echo htmlspecialchars($student['section_grade_level'] . ' - ' . $student['section_name']); ?></td>
+                  <td><?php echo htmlspecialchars($student['school_year']); ?></td>
+                  <td>
+                    <a href="view-student.php?id=<?php echo $student['id']; ?>" class="btn btn-sm btn-primary">View</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="6" class="text-center">No students found.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <?php require_once __DIR__ . '/partials/footer.php'; ?>
     

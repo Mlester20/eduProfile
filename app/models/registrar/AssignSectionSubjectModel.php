@@ -28,7 +28,8 @@ require_once __DIR__ . '/../Model.php';
                 $result = $stmt->get_result();
                 return $result->fetch_all(MYSQLI_ASSOC);
             }catch(Exception $e){
-                return $e->getMessage();
+                error_log("Error fetching assign subjects: " . $e->getMessage());
+                return [];
             }
         }
 
@@ -46,6 +47,78 @@ require_once __DIR__ . '/../Model.php';
             }catch(Exception $e){
                 error_log("Error creating section subject assignment: " . $e->getMessage());
                 return false;
+            }
+        }
+
+        public function checkDuplicate($section_id, $subject_id){
+            try{
+                $query = "SELECT id FROM {$this->assign_subjects} WHERE section_id = ? AND subject_id = ?";
+                $stmt = $this->con->prepare($query);
+                $stmt->bind_param("ii", $section_id, $subject_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                return $result->num_rows > 0;
+            }catch(Exception $e){
+                error_log("Error checking duplicate: " . $e->getMessage());
+                return false;
+            }
+        }
+
+        public function createMultiple($section_id, $subject_ids){
+            try{
+                if(empty($subject_ids) || !is_array($subject_ids)){
+                    return ['success' => false, 'message' => 'No subjects provided'];
+                }
+
+                $inserted = 0;
+                $duplicates = 0;
+                $errors = [];
+
+                foreach($subject_ids as $subject_id){
+                    // Check for duplicates
+                    if($this->checkDuplicate($section_id, $subject_id)){
+                        $duplicates++;
+                        continue;
+                    }
+
+                    $query = "INSERT INTO {$this->assign_subjects} (section_id, subject_id) VALUES (?,?)";
+                    $stmt = $this->con->prepare($query);
+                    $stmt->bind_param("ii", $section_id, $subject_id);
+                    
+                    if($stmt->execute()){
+                        $inserted++;
+                    } else {
+                        $errors[] = "Failed to assign subject ID: {$subject_id}";
+                    }
+                }
+
+                return [
+                    'success' => $inserted > 0,
+                    'inserted' => $inserted,
+                    'duplicates' => $duplicates,
+                    'errors' => $errors
+                ];
+            }catch(Exception $e){
+                error_log("Error creating multiple assignments: " . $e->getMessage());
+                return ['success' => false, 'message' => 'Database error: ' . $e->getMessage()];
+            }
+        }
+
+        public function getAssignedSubjects($section_id){
+            try{
+                $query = "SELECT subject_id FROM {$this->assign_subjects} WHERE section_id = ?";
+                $stmt = $this->con->prepare($query);
+                $stmt->bind_param("i", $section_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $assigned = [];
+                while($row = $result->fetch_assoc()){
+                    $assigned[] = $row['subject_id'];
+                }
+                return $assigned;
+            }catch(Exception $e){
+                error_log("Error getting assigned subjects: " . $e->getMessage());
+                return [];
             }
         }
 
