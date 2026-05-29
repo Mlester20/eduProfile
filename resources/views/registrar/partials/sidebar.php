@@ -102,8 +102,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </li>
 
             <li class="menu-item">
-              <a href="section-subjects.php" class="menu-link">
-                <div data-i18n="Error">Section Subjects</div>
+              <a href="assign-section-subjects.php" class="menu-link">
+                <div data-i18n="Error">Assign Section Subjects</div>
               </a>
             </li>
 
