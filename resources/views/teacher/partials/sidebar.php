@@ -38,15 +38,20 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <!-- My Students -->
-        <li class="menu-item <?php echo ($currentPage === 'my-students.php') ? 'active' : ''; ?>">
+        <li class="menu-item <?php echo ($currentPage === 'my-students.php' || $currentPage === 'subject-lists.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
-            <div data-i18n="My Students">My Students</div>
+            <div data-i18n="My Students">Students List</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="my-students.php" class="menu-link">
                 <div data-i18n="Account">View Students</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="subject-lists.php" class="menu-link">
+                <div data-i18n="Notifications">Subject Lists</div>
               </a>
             </li>
           </ul>

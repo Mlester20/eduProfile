@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2026 at 08:27 AM
+-- Generation Time: May 30, 2026 at 04:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,69 @@ SET time_zone = "+00:00";
 --
 -- Database: `profilingdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `academic_history`
+--
+
+CREATE TABLE `academic_history` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `school_year_id` int(11) NOT NULL,
+  `grade_level` varchar(50) NOT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `enrollment_status` enum('Enrolled','Transferred','Graduated','Inactive') DEFAULT 'Enrolled',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign_section_subjects`
+--
+
+CREATE TABLE `assign_section_subjects` (
+  `id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `assign_section_subjects`
+--
+
+INSERT INTO `assign_section_subjects` (`id`, `section_id`, `subject_id`, `created_at`) VALUES
+(11, 10, 15, '2026-05-29 14:30:51'),
+(12, 10, 16, '2026-05-29 14:30:51'),
+(13, 10, 17, '2026-05-29 14:30:51'),
+(14, 10, 18, '2026-05-29 14:30:51'),
+(15, 10, 19, '2026-05-29 14:30:51'),
+(16, 10, 20, '2026-05-29 14:30:51'),
+(17, 10, 21, '2026-05-29 14:30:51'),
+(18, 10, 22, '2026-05-29 14:30:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance`
+--
+
+CREATE TABLE `attendance` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `subject_id` int(11) DEFAULT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `school_year_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `status` enum('Present','Absent','Late','Excused') NOT NULL DEFAULT 'Present',
+  `remarks` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +152,50 @@ INSERT INTO `audit_logs` (`id`, `user_id`, `role`, `action`, `module`, `referenc
 (70, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-22 13:20:36'),
 (71, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 05:20:51'),
 (72, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-24 05:33:58'),
-(73, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 05:49:26');
+(73, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 05:49:26'),
+(74, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 14:22:46'),
+(75, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 14:47:39'),
+(76, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-24 14:52:59'),
+(77, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-24 14:53:09'),
+(78, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-25 05:51:15'),
+(79, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-25 07:57:04'),
+(80, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-26 14:42:07'),
+(81, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 04:42:58'),
+(82, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 05:00:26'),
+(83, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-28 05:48:18'),
+(84, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-28 05:48:57'),
+(85, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 13:31:58'),
+(86, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 14:28:14'),
+(87, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 14:40:40'),
+(88, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-28 14:48:32'),
+(89, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 14:58:30'),
+(90, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-28 15:10:06'),
+(91, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-28 15:30:53'),
+(92, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-28 15:31:27'),
+(93, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 01:24:04'),
+(94, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 03:02:33'),
+(95, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 11:58:35'),
+(96, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 13:11:29'),
+(97, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 14:11:34'),
+(98, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-29 14:33:08'),
+(99, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-29 15:33:49'),
+(100, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 12:31:02'),
+(101, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 12:32:23'),
+(102, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 12:33:00'),
+(103, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 13:24:24'),
+(104, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-30 13:26:07'),
+(105, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 13:28:27'),
+(106, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-30 13:53:57'),
+(107, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 13:55:05'),
+(108, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:03:58'),
+(109, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-30 14:04:56'),
+(110, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-30 14:05:34'),
+(111, 4, 'admin', 'LOGIN', 'AUTH', NULL, NULL, 'admin logged in', '::1', 'success', '2026-05-30 14:05:57'),
+(112, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:09:59'),
+(113, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:10:51'),
+(114, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:12:17'),
+(115, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:12:40'),
+(116, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 14:17:21');
 
 -- --------------------------------------------------------
 
@@ -111,14 +217,6 @@ CREATE TABLE `parents_guardians` (
   `guardian_contact` varchar(20) DEFAULT NULL,
   `monthly_income` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `parents_guardians`
---
-
-INSERT INTO `parents_guardians` (`id`, `student_id`, `father_name`, `father_occupation`, `father_contact`, `mother_name`, `mother_occupation`, `mother_contact`, `guardian_name`, `guardian_relationship`, `guardian_contact`, `monthly_income`) VALUES
-(4, 2, 'Armando Raguindin Sr.', 'Tricycle Driver', '09360991034', 'Melba Raguindin', 'Baby Sitter', '09685340012', 'Melba Raguindin', 'Mother', '09213001234', 3500.00),
-(5, 4, 'Juan Dela-Cruz', 'Engineer', '', 'Maria Dela-Cruz', 'Baby Sitter', '', 'Juan Dela-Cruz', 'Father', '09213001234', 0.00);
 
 -- --------------------------------------------------------
 
@@ -159,18 +257,12 @@ CREATE TABLE `sections` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `section_subjects`
+-- Dumping data for table `sections`
 --
 
-CREATE TABLE `section_subjects` (
-  `id` int(11) NOT NULL,
-  `section_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `sections` (`id`, `section_name`, `grade_level`, `adviser_id`, `school_year_id`, `max_students`, `created_at`) VALUES
+(10, 'Andres Bonifacio', 'Grade 2', 5, 8, 35, '2026-05-24 14:33:38');
 
 -- --------------------------------------------------------
 
@@ -205,7 +297,6 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `lrn`, `first_name`, `middle_name`, `last_name`, `suffix`, `grade_level`, `gender`, `birth_date`, `age`, `place_of_birth`, `nationality`, `religion`, `address`, `contact_number`, `email`, `profile_photo`, `enrollment_status`, `created_at`) VALUES
-(2, '20242111365', 'Mark Lester ', 'Suguitan', 'Raguindin', '', 'Grade 1', 'Male', '2002-12-20', 9, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Rizal, Roxas, Isabela', '09349991034', '', 'Array', 'Enrolled', '2026-05-11 13:07:26'),
 (3, '2026000001', 'Mark', 'Santos', 'Reyes', NULL, 'Grade 1', 'Male', '2012-05-14', 14, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09171234567', 'mark.reyes@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
 (4, '2026000002', 'Angela', 'Lopez', 'Cruz', NULL, 'Grade 1', 'Female', '2011-09-22', 15, 'Tuguegarao City, Cagayan', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09181234567', 'angela.cruz@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
 (5, '2026000003', 'Joshua', 'Rivera', 'Fernandez', NULL, 'Grade 1', 'Male', '2013-01-10', 13, 'Santiago City, Isabela', 'Filipino', 'Iglesia ni Cristo', 'Cabagan, Isabela', '09191234567', 'joshua.fernandez@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
@@ -218,14 +309,15 @@ INSERT INTO `students` (`id`, `lrn`, `first_name`, `middle_name`, `last_name`, `
 (12, '2026000010', 'Patricia', 'Navarro', 'Salvador', NULL, 'Grade 1', 'Female', '2013-06-27', 13, 'Reina Mercedes, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09261234567', 'patricia.salvador@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
 (13, '118765432101', 'Juan', 'Santos', 'Dela Cruz', NULL, 'Grade 1', 'Male', '2013-05-14', 11, 'Quezon City', 'Filipino', 'Catholic', 'Brgy. San Isidro, Luna, Isabela', '09171234567', 'juan.delacruz@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
 (14, '118765432102', 'Maria', 'Reyes', 'Lopez', NULL, 'Grade 1', 'Female', '2012-11-20', 12, 'Ilagan City', 'Filipino', 'Catholic', 'Brgy. Lallayug, Luna, Isabela', '09181234567', 'maria.lopez@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(15, '118765432103', 'Mark', 'Villanueva', 'Garcia', NULL, 'Grade 1', 'Male', '2014-02-09', 10, 'Tuguegarao City', 'Filipino', 'INC', 'Brgy. Macatel, Luna, Isabela', '09191234567', 'mark.garcia@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(15, '118765432103', 'Mark', 'Villanueva', 'Garcia', '', 'Grade 1', 'Male', '2014-02-09', 10, 'Tuguegarao City', 'Filipino', 'INC', 'Brgy. Macatel, Luna, Isabela', '09191234567', 'mark.garcia@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
 (16, '118765432104', 'Angela', 'Torres', 'Ramos', NULL, 'Grade 1', 'Female', '2013-08-25', 11, 'Santiago City', 'Filipino', 'Catholic', 'Brgy. Abbag, Luna, Isabela', '09201234567', 'angela.ramos@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(17, '118765432105', 'Joshua', 'Fernandez', 'Mendoza', 'Jr.', 'Grade 1', 'Male', '2012-03-18', 12, 'Cauayan City', 'Filipino', 'Born Again', 'Brgy. Union, Luna, Isabela', '09211234567', 'joshua.mendoza@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(17, '118765432105', 'Joshua', 'Fernandez', 'Mendoza', 'Jr.', 'Grade 1', 'Male', '2012-03-18', 12, 'Cauayan City', 'Filipino', 'Born Again', 'Brgy. Union, Luna, Isabela', '09211234567', 'joshua.mendoza@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
 (18, '118765432106', 'Christine', 'Aquino', 'Castro', NULL, 'Grade 1', 'Female', '2014-07-11', 10, 'Aparri, Cagayan', 'Filipino', 'Catholic', 'Brgy. Luyao, Luna, Isabela', '09221234567', 'christine.castro@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(19, '118765432107', 'Daniel', 'Perez', 'Navarro', NULL, 'Grade 1', 'Male', '2013-01-30', 11, 'Naguilian, Isabela', 'Filipino', 'Baptist', 'Brgy. Mambabanga, Luna, Isabela', '09231234567', 'daniel.navarro@example.com', 'default.png', '', '2026-05-22 03:45:03'),
+(19, '118765432107', 'Daniel', 'Perez', 'Navarro', '', 'Grade 1', 'Male', '2013-01-30', 11, 'Naguilian, Isabela', 'Filipino', 'Baptist', 'Brgy. Mambabanga, Luna, Isabela', '09231234567', 'daniel.navarro@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
 (20, '118765432108', 'Sophia', 'Manalo', 'Bautista', NULL, 'Grade 1', 'Female', '2012-09-05', 12, 'Cabagan, Isabela', 'Filipino', 'Catholic', 'Brgy. Centro, Luna, Isabela', '09241234567', 'sophia.bautista@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
 (21, '118765432109', 'Kevin', 'Flores', 'Diaz', NULL, 'Grade 1', 'Male', '2014-04-27', 10, 'Roxas, Isabela', 'Filipino', 'Catholic', 'Brgy. Salvacion, Luna, Isabela', '09251234567', 'kevin.diaz@example.com', 'default.png', 'Transferred', '2026-05-22 03:45:03'),
-(22, '118765432110', 'Patricia', 'Morales', 'Gonzales', '', 'Grade 6', 'Female', '2013-12-15', 11, 'Tumauini, Isabela', 'Filipino', 'Methodist', 'Brgy. Nannarian, Luna, Isabela', '09261234567', 'patricia.gonzales@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03');
+(22, '118765432110', 'Patricia', 'Morales', 'Gonzales', '', 'Grade 6', 'Female', '2013-12-15', 11, 'Tumauini, Isabela', 'Filipino', 'Methodist', 'Brgy. Nannarian, Luna, Isabela', '09261234567', 'patricia.gonzales@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
+(24, '20242111365', 'Mark Lester ', 'Suguitan', 'Raguindin', '', 'Grade 2', 'Male', '2002-12-20', 11, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Rizal, Roxas, Isabela', '', '', '', 'Enrolled', '2026-05-30 14:13:58');
 
 -- --------------------------------------------------------
 
@@ -238,6 +330,16 @@ CREATE TABLE `student_sections` (
   `student_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_sections`
+--
+
+INSERT INTO `student_sections` (`id`, `student_id`, `section_id`) VALUES
+(40, 3, 10),
+(41, 4, 10),
+(42, 5, 10),
+(43, 24, 10);
 
 -- --------------------------------------------------------
 
@@ -293,7 +395,7 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_pi
 (3, 'Administrative', 'administrative@gmail.com', '$2y$10$CQASCJeXsOYOvWm4kK03i.S1SxUWsdPMv56Qlz04eq0GazfxE8FSi', 'administrative', 'storage/profiles/pfp_3_1778323470.jpg', '2026-05-09', '2026-05-09'),
 (4, 'admin', 'admin@gmail.com', '$2y$10$ihbCVd8WOJO17B4BFQgAUORhb1UEYpIFmpd1Q/ShW6n5uNMkLZ7kq', 'admin', '8.jpg', '2026-05-09', '2026-05-09'),
 (5, 'Jennifer J. Upton', 'teacher@gmail.com', '$2y$10$JIgDIhgM0PF2mpHSeNWEk.EwMUrAhweKqBinP9shLxyInzdhrbwbe', 'teacher', 'storage/profiles/pfp_5_1779345881.png', '2026-05-10', '2026-05-21'),
-(13, 'Registrar', 'registrar@gmail.com', '$2y$10$IEz8YAjPkN2ddoQTR6YRUupEwnweJ6YNzsl8opZsKoXrMMFkaJYZG', 'registrar', NULL, '2026-05-15', '0000-00-00'),
+(13, 'Registrar', 'registrar@school.edu.ph', '$2y$10$IEz8YAjPkN2ddoQTR6YRUupEwnweJ6YNzsl8opZsKoXrMMFkaJYZG', 'registrar', 'storage/profiles/pfp_13_1779633057.jpg', '2026-05-15', '2026-05-30'),
 (14, 'teacher 2', 'teacher1@gmail.com', '$2y$10$1LxuNhIoGyP5pgS2rnMGheE2vsCuzAQqAqSHqqSkTl6DHBeXaH.pm', 'teacher', NULL, '2026-05-19', '2026-05-19'),
 (15, 'John Doe', 'teacher3@gmail.com', '$2y$10$MH6VDut/tBSlLmu23a55geQaSo08Yplt7XPdXEg2yFKU38qfc4Mdu', 'teacher', 'storage/profiles/pfp_15_1779416785.png', '2026-05-19', '2026-05-22'),
 (16, 'teacher 4', 'teacher4@gmail.com', '$2y$10$1kGUkbDy5q4l9wL.g6YlW.RdTV2sgmoOiCNdpmezmoXzfJ9nRTCi.', 'teacher', NULL, '2026-05-19', '2026-05-19');
@@ -301,6 +403,35 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_pi
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `academic_history`
+--
+ALTER TABLE `academic_history`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_student_year` (`student_id`,`school_year_id`),
+  ADD KEY `fk_ah_school_year` (`school_year_id`),
+  ADD KEY `fk_ah_section` (`section_id`);
+
+--
+-- Indexes for table `assign_section_subjects`
+--
+ALTER TABLE `assign_section_subjects`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_section_subject` (`section_id`,`subject_id`),
+  ADD KEY `subject_id` (`subject_id`);
+
+--
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_attendance` (`student_id`,`section_id`,`date`,`subject_id`),
+  ADD KEY `fk_att_student` (`student_id`),
+  ADD KEY `fk_att_section` (`section_id`),
+  ADD KEY `fk_att_teacher` (`teacher_id`),
+  ADD KEY `fk_att_school_year` (`school_year_id`),
+  ADD KEY `idx_att_date` (`date`);
 
 --
 -- Indexes for table `audit_logs`
@@ -330,14 +461,6 @@ ALTER TABLE `sections`
   ADD PRIMARY KEY (`id`),
   ADD KEY `adviser_id` (`adviser_id`),
   ADD KEY `school_year_id` (`school_year_id`);
-
---
--- Indexes for table `section_subjects`
---
-ALTER TABLE `section_subjects`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_section_subject` (`section_id`,`subject_id`),
-  ADD KEY `subject_id` (`subject_id`);
 
 --
 -- Indexes for table `students`
@@ -371,10 +494,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `academic_history`
+--
+ALTER TABLE `academic_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `assign_section_subjects`
+--
+ALTER TABLE `assign_section_subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `parents_guardians`
@@ -392,25 +533,19 @@ ALTER TABLE `school_year`
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `section_subjects`
---
-ALTER TABLE `section_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `student_sections`
 --
 ALTER TABLE `student_sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -427,6 +562,30 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `academic_history`
+--
+ALTER TABLE `academic_history`
+  ADD CONSTRAINT `fk_ah_school_year` FOREIGN KEY (`school_year_id`) REFERENCES `school_year` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_ah_section` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `fk_ah_student` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `assign_section_subjects`
+--
+ALTER TABLE `assign_section_subjects`
+  ADD CONSTRAINT `assign_section_subjects_ibfk_1` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `assign_section_subjects_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `fk_att_school_year` FOREIGN KEY (`school_year_id`) REFERENCES `school_year` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_att_section` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_att_student` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_att_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `audit_logs`
@@ -446,13 +605,6 @@ ALTER TABLE `parents_guardians`
 ALTER TABLE `sections`
   ADD CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`adviser_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `sections_ibfk_2` FOREIGN KEY (`school_year_id`) REFERENCES `school_year` (`id`);
-
---
--- Constraints for table `section_subjects`
---
-ALTER TABLE `section_subjects`
-  ADD CONSTRAINT `section_subjects_ibfk_1` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `section_subjects_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `student_sections`

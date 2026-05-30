@@ -3,8 +3,6 @@ session_start();
 
 require_once __DIR__ . '/../../models/teacher/StudentsListModel.php';
 require_once __DIR__ . '/../../../database/config/config.php';
-require_once __DIR__ . '/../../helpers/auditLogs.php';
-require_once __DIR__ . '/../../helpers/message.php';
 require_once __DIR__ . '/../../../app/services/StudentsService.php';
 
     class StudentsListController{
