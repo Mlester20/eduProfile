@@ -22,7 +22,7 @@ AuthRole::allowOnly(['registrar']);
     />
     <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Sections </title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -47,7 +47,7 @@ AuthRole::allowOnly(['registrar']);
     <div class="row mb-3 align-items-center">
       <div class="col md-6">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search Sections (e.g., Mahogani...)" id="searchSections">
+          <input type="text" class="form-control" placeholder="Search Sections (e.g., Mahogani...)" id="searchInput">
         </div>
       </div>
       <div class="col-md-6 text-end mt-2 mt-md-0">

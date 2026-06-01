@@ -12,7 +12,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <div class="app-brand demo">
         <a href="home.php" class="app-brand-link">
           <span class="app-brand-logo demo">
-            <i class="bx bx-book-open" style="font-size: 28px; color: #696cff;"></i>
+            <img src="../../../../public/assets/img/favicon/logo.png" alt="logo" style="width: 50px; height: 50px;">
           </span>
           <span class="app-brand-text demo menu-text fw-bolder ms-2">EduProfile</span>
         </a>
@@ -38,15 +38,20 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <!-- My Students -->
-        <li class="menu-item <?php echo ($currentPage === 'my-students.php') ? 'active' : ''; ?>">
+        <li class="menu-item <?php echo ($currentPage === 'my-students.php' || $currentPage === 'subject-lists.php') ? 'active' : ''; ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
-            <div data-i18n="My Students">My Students</div>
+            <div data-i18n="My Students">Students List</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="my-students.php" class="menu-link">
-                <div data-i18n="Account">View Students</div>
+                <div data-i18n="Account">My Students</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="subject-lists.php" class="menu-link">
+                <div data-i18n="Notifications">Subject Lists</div>
               </a>
             </li>
           </ul>

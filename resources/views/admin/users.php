@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../../../app/controllers/admin/UsersController.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['admin']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['admin']);
 ?>
 
 <!DOCTYPE html>

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../models/registrar/StudentGuardianModel.php';
 require_once __DIR__ . '/../../models/registrar/EnrollStudentsModel.php';
 require_once __DIR__ . '/../../helpers/message.php';
 require_once __DIR__ . '/../../helpers/auditLogs.php';
-require_once __DIR__ . '/../../services/Students.php';
+require_once __DIR__ . '/../../services/StudentsService.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 
     class StudentGuardianController extends Controller{

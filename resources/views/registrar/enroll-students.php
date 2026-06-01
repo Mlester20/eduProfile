@@ -23,7 +23,7 @@ AuthRole::allowOnly(['registrar']);
     />
     <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Enroll Student </title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,11 +46,16 @@ AuthRole::allowOnly(['registrar']);
     <?php require_once __DIR__ . '/partials/sidebar.php'; ?>
     <?php require_once __DIR__ . '/partials/topbar.php'; ?>
 
-    <!-- button to triggered enroll student modal -->
-    <div class="text-end">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrollStudentModal">
-            Enroll Student
-        </button>
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Students (e.g., Juan Dela Cruz)" id="searchInput">
+        </div>
+      </div>
+      
+      <div class="col-md-6 text-end mt-2 mt-md-0">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrollStudentModal">Enroll Student</button>
+      </div>
     </div>
 
     <!-- Enroll Student Modal -->
@@ -89,6 +94,11 @@ AuthRole::allowOnly(['registrar']);
                                     <option value="III">III</option>
                                     <option value="IV">IV</option>
                                 </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label form-label-sm">Grade Level</label>
+                                <input type="text" name="grade_level" class="form-control form-control-sm" placeholder="e.g., Grade 1" required>
                             </div>
 
                             <div class="col-md-4">
@@ -317,6 +327,11 @@ AuthRole::allowOnly(['registrar']);
                                 </select>
                             </div>
 
+                            <div class="col-md-3">
+                                <label class="form-label form-label-sm">Grade Level</label>
+                                <input type="text" name="grade_level" class="form-control form-control-sm" id="edit_grade_level" placeholder="e.g., Grade 1">
+                            </div>
+
                             <div class="col-md-4">
                                 <label class="form-label form-label-sm">First Name</label>
                                 <input type="text" name="first_name" id="edit_first_name" class="form-control form-control-sm" placeholder="First name" required>
@@ -412,9 +427,8 @@ AuthRole::allowOnly(['registrar']);
                         <th>#</th>
                         <th>LRN</th>
                         <th>Full Name</th>
-                        <th>Gender</th>
-                        <th>Birth Date</th>
-                        <th>Age</th>
+                        <th>Grade Level</th>
+                        <th>Enrollment Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -429,9 +443,8 @@ AuthRole::allowOnly(['registrar']);
                         <td><?php echo $rowNumber; ?></td>
                         <td><?php echo htmlspecialchars($student['lrn'] ?? 'N/A'); ?></td>
                         <td><?php echo htmlspecialchars($student['full_name'] ?? 'N/A'); ?></td>
-                        <td><?php echo htmlspecialchars($student['gender'] ?? 'N/A'); ?></td>
-                        <td><?php echo htmlspecialchars($student['birth_date'] ?? 'N/A'); ?></td>
-                        <td><?php echo htmlspecialchars($student['age'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($student['grade_level']); ?></td>
+                        <td><?php echo htmlspecialchars($student['enrollment_status'] ?? 'N/A'); ?></td>        
                         <td>
                             <button class="btn btn-sm btn-info" onclick="viewStudent(<?php echo $student['id']; ?>)">View</button>
                             <button class="btn btn-sm btn-primary" onclick="editStudent(<?php echo $student['id']; ?>)">Edit</button>

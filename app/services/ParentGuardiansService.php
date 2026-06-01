@@ -5,8 +5,7 @@ require_once __DIR__ . '/../models/Model.php';
         protected $students = 'students';
         protected $parents_guardians = 'parents_guardians';
 
-        public function searchParentsGuardians($keyword)
-        {
+        public function searchParentsGuardians($keyword){
             $keyword = trim($keyword);
 
             if (empty($keyword) || strlen($keyword) < 2) {

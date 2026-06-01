@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['admin']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['admin']);
 ?>
 
 <!DOCTYPE html>

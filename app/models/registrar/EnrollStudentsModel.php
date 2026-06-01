@@ -61,17 +61,18 @@ require_once __DIR__ . '/../Model.php';
             try{
                 $query = "
                     INSERT INTO {$this->students}
-                    (lrn, first_name, middle_name, last_name,suffix, gender, birth_date, age, place_of_birth, nationality, religion, address, contact_number, email, profile_photo, enrollment_status)
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (lrn, first_name, middle_name, last_name, suffix, grade_level, gender, birth_date, age, place_of_birth, nationality, religion, address, contact_number, email, profile_photo, enrollment_status)
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ";
                 $stmt = $this->con->prepare($query);
                 $stmt->bind_param(
-                    "sssssssissssssss",
+                    "ssssssssissssssss",
                     $data['lrn'],
                     $data['first_name'],
                     $data['middle_name'],
                     $data['last_name'],
                     $data['suffix'],
+                    $data['grade_level'],
                     $data['gender'],
                     $data['birth_date'],
                     $data['age'],
@@ -95,19 +96,20 @@ require_once __DIR__ . '/../Model.php';
             try{
                 $query = "
                     UPDATE {$this->students}
-                    SET lrn = ?, first_name = ?, middle_name = ?, last_name = ?, suffix = ?, gender = ?, 
+                    SET lrn = ?, first_name = ?, middle_name = ?, last_name = ?, suffix = ?, grade_level = ?, gender = ?, 
                         birth_date = ?, age = ?, place_of_birth = ?, nationality = ?, religion = ?, 
                         address = ?, contact_number = ?, email = ?, profile_photo = ?, enrollment_status = ?
                     WHERE id = ?
                 ";
                 $stmt = $this->con->prepare($query);
                 $stmt->bind_param(
-                    "sssssssissssssssi",
+                    "ssssssssissssssssi",
                     $data['lrn'],
                     $data['first_name'],
                     $data['middle_name'],
                     $data['last_name'],
                     $data['suffix'],
+                    $data['grade_level'],
                     $data['gender'],
                     $data['birth_date'],
                     $data['age'],

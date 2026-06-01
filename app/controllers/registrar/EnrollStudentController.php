@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__ . '/../../models/registrar/EnrollStudentsModel.php';
 require_once __DIR__ . '/../../helpers/message.php';
 require_once __DIR__ . '/../../controllers/Controller.php';
-require_once __DIR__ . '/../../services/Students.php';
+require_once __DIR__ . '/../../services/StudentsService.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 
     class EnrollStudentController extends Controller{
@@ -35,7 +35,7 @@ require_once __DIR__ . '/../../../database/config/config.php';
                 }
 
                 // Add full names to students
-                $result['students'] = Students::addFullNames($result['students']);
+                $result['students'] = StudentsService::addFullNames($result['students']);
 
                 return $result;
             } catch (Exception $e) {
@@ -132,6 +132,7 @@ require_once __DIR__ . '/../../../database/config/config.php';
                     'middle_name' => $_POST['middle_name'],
                     'last_name' => $_POST['last_name'],
                     'suffix' => $_POST['suffix'] ?? '',
+                    'grade_level' => $_POST['grade_level'],
                     'gender' => $_POST['gender'],
                     'birth_date' => $_POST['birth_date'],
                     'age' => $_POST['age'],
@@ -176,6 +177,7 @@ require_once __DIR__ . '/../../../database/config/config.php';
                     'middle_name' => $_POST['middle_name'],
                     'last_name' => $_POST['last_name'],
                     'suffix' => $_POST['suffix'] ?? '',
+                    'grade_level' => $_POST['grade_level'],
                     'gender' => $_POST['gender'],
                     'birth_date' => $_POST['birth_date'],
                     'age' => $_POST['age'],

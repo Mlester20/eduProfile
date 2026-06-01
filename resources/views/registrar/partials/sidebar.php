@@ -12,7 +12,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <div class="app-brand demo">
         <a href="home.php" class="app-brand-link">
           <span class="app-brand-logo demo">
-            <i class="bx bx-book-open" style="font-size: 28px; color: #696cff;"></i>
+            <img src="../../../../public/assets/img/favicon/logo.png" alt="logo" style="width: 50px; height: 50px;">
           </span>
           <span class="app-brand-text demo menu-text fw-bolder ms-2">EduProfile</span>
         </a>
@@ -83,7 +83,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </li>
 
         <!-- Sections -->
-        <li class="menu-item <?php echo ($currentPage === 'sections.php') || ($currentPage === 'student-sections.php') ? 'active' : '';  ?>">
+        <li class="menu-item <?php echo ($currentPage === 'sections.php') || ($currentPage === 'student-sections.php') || ($currentPage === 'section-subjects.php') ? 'active' : '';  ?>">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-grid-alt"></i>
             <div data-i18n="Sections">Sections</div>
@@ -94,11 +94,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <div data-i18n="Error">Manage Sections</div>
               </a>
             </li>
+
             <li class="menu-item">
               <a href="student-sections.php" class="menu-link">
                 <div data-i18n="Error">Create Student Section</div>
               </a>
             </li>
+
+            <li class="menu-item">
+              <a href="assign-section-subjects.php" class="menu-link">
+                <div data-i18n="Error">Assign Section Subjects</div>
+              </a>
+            </li>
+
           </ul>
         </li>
       </ul>

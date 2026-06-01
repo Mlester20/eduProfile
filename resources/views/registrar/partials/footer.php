@@ -7,8 +7,7 @@
             <div class="mb-2 mb-md-0">
               &copy;
               <script>document.write(new Date().getFullYear());</script>
-              , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Poging Si Lester</a>
+              <a href="#" class="footer-link fw-bolder">San Jose Sur Elementary</a>
             </div>
           </div>
         </footer>

@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../../app/middleware/auth.php';
-allowOnly(['teacher']);
+require_once __DIR__ . '/../../../app/middleware/Role.php';
+AuthRole::allowOnly(['teacher']);
 
 ?>
 
@@ -21,9 +21,9 @@ allowOnly(['teacher']);
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Dashboard </title>
+    <title> <?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Home </title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

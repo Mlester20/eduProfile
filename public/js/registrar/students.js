@@ -80,6 +80,7 @@ function editStudent(id) {
             document.getElementById('edit_birth_date').value      = data.birth_date ?? '';
             document.getElementById('edit_age').value             = data.age ?? '';
             document.getElementById('edit_place_of_birth').value  = data.place_of_birth ?? '';
+            
 
             // Dropdowns
             setSelectValue('edit_gender', data.gender);
@@ -90,6 +91,7 @@ function editStudent(id) {
             document.getElementById('edit_nationality').value     = data.nationality ?? '';
             document.getElementById('edit_religion').value        = data.religion ?? '';
             document.getElementById('edit_address').value         = data.address ?? '';
+            document.getElementById('edit_grade_level').value     = data.grade_level ?? '';
 
             // Contact
             document.getElementById('edit_contact_number').value  = data.contact_number ?? '';
@@ -147,3 +149,192 @@ function setSelectValue(elementId, value) {
     const option = [...select.options].find(o => o.value === String(value));
     if (option) select.value = option.value;
 }
+
+// ========================================
+// Search Functionality
+// ========================================
+
+let searchTimeout;
+
+/**
+ * Debounce function to limit search requests
+ * @param {Function} func - Function to debounce
+ * @param {number} delay - Delay in milliseconds
+ */
+function debounce(func, delay) {
+    return function (...args) {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+/**
+ * Perform student search via API
+ * @param {string} keyword - Search keyword
+ */
+async function searchStudents(keyword) {
+    const tableBody = document.querySelector('table tbody');
+    const paginationContainer = document.querySelector('.card-footer');
+
+    // Validate keyword
+    if (!keyword || keyword.trim().length < 2) {
+        // Reset to show all students if keyword is empty or too short
+        if (keyword === '') {
+            location.reload();
+        }
+        return;
+    }
+
+    try {
+        // Disable pagination during search
+        if (paginationContainer) {
+            paginationContainer.style.display = 'none';
+        }
+
+        // Show loading state
+        if (tableBody) {
+            tableBody.innerHTML = '<tr><td colspan="6" class="text-center"><span class="spinner-border spinner-border-sm me-2"></span>Searching...</td></tr>';
+        }
+
+        // Build API URL with absolute path
+        const baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/resources'));
+        const apiUrl = baseUrl + '/app/api/registrar/search-students.php?q=' + encodeURIComponent(keyword.trim());
+
+        // Fetch search results
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+        });
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || 'Search failed');
+        }
+
+        // Render search results
+        renderSearchResults(data.data || []);
+
+    } catch (error) {
+        console.error('Search error:', error);
+        
+        // Show error message
+        if (tableBody) {
+            tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error searching students. Please try again.</td></tr>';
+        }
+    }
+}
+
+/**
+ * Render search results in the table
+ * @param {Array} results - Search results from API
+ */
+function renderSearchResults(results) {
+    const tableBody = document.querySelector('table tbody');
+    const paginationContainer = document.querySelector('.card-footer');
+
+    if (!tableBody) return;
+
+    // Clear existing content
+    tableBody.innerHTML = '';
+
+    if (results.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No students found matching your search.</td></tr>';
+        if (paginationContainer) {
+            paginationContainer.style.display = 'none';
+        }
+        return;
+    }
+
+    const rows = results.map((student, index) => {
+        const studentName = `${student.first_name || ''} ${student.middle_name || ''} ${student.last_name || ''}`.trim();
+        const lrn = student.lrn || 'N/A';
+        const gradeLevel = student.grade_level || 'N/A';
+        const enrollmentStatus = student.enrollment_status || 'N/A';
+
+        return `
+            <tr>
+                <td>${escapeHtml(index + 1)}</td>
+                <td>${escapeHtml(lrn)}</td>
+                <td>${escapeHtml(studentName)}</td>
+                <td>${escapeHtml(gradeLevel)}</td>
+                <td>${escapeHtml(enrollmentStatus)}</td>
+                <td>
+                    <button 
+                        class="btn btn-sm btn-info me-1"
+                        title="View Student"
+                        onclick="viewStudent(${student.id})"
+                    >
+                        View
+                    </button>
+
+                    <button 
+                        class="btn btn-sm btn-warning me-1"
+                        title="Edit Student"
+                        onclick="editStudent(${student.id})"
+                    >
+                        Edit
+                    </button>
+
+                    <button 
+                        class="btn btn-sm btn-danger" 
+                        title="Delete Student"
+                        onclick="if(confirm('Are you sure you want to delete this student?')) deleteStudent(${student.id})"
+                    >
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    // Insert rows into table
+    tableBody.innerHTML = rows;
+
+    // Hide pagination during search results
+    if (paginationContainer) {
+        paginationContainer.style.display = 'none';
+    }
+}
+
+/**
+ * Escape HTML special characters for safe display
+ * @param {string} text - Text to escape
+ */
+function escapeHtml(text) {
+    if (!text) return '';
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return String(text).replace(/[&<>"']/g, m => map[m]);
+}
+
+/**
+ * Initialize search functionality
+ */
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    
+    if (!searchInput) return;
+
+    const debouncedSearch = debounce((e) => {
+        const keyword = e.target.value.trim();
+        searchStudents(keyword);
+    }, 300);
+
+    searchInput.addEventListener('input', debouncedSearch);
+}
+
+document.addEventListener('DOMContentLoaded', initializeSearch);

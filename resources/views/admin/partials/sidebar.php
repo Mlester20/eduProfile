@@ -12,7 +12,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <div class="app-brand demo">
         <a href="dashboard.php" class="app-brand-link">
           <span class="app-brand-logo demo">
-            <i class="bx bx-book-open" style="font-size: 28px; color: #696cff;"></i>
+            <img src="../../../../public/assets/img/favicon/logo.png" alt="logo">
           </span>
           <span class="app-brand-text demo menu-text fw-bolder ms-2">EduProfile</span>
         </a>

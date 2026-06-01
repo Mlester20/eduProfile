@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../../app/middleware/auth.php';
+require_once __DIR__ . '/../../../app/middleware/Role.php';
 require_once __DIR__ . '/../../../app/helpers/message.php';
 require_once __DIR__ . '/../../../app/models/UpdateProfileModel.php';
 require_once __DIR__ . '/../../../database/config/config.php';
 
-allowOnly(['teacher']); 
+AuthRole::allowOnly(['teacher']);
 
 // Get user profile data
 $updateProfileModel = new UpdateProfileModel($con);
@@ -30,7 +30,7 @@ $memberSince = (is_array($userProfile) && !empty($userProfile['created_at'])) ? 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php require_once __DIR__ . '/../../../app/helpers/title.php'; ?> | Profile Settings</title>
     <meta name="description" content="" />
-    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../../public/assets/img/favicon/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
