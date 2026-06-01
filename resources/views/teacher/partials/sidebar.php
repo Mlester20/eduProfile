@@ -12,7 +12,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       <div class="app-brand demo">
         <a href="home.php" class="app-brand-link">
           <span class="app-brand-logo demo">
-            <i class="bx bx-book-open" style="font-size: 28px; color: #696cff;"></i>
+            <img src="../../../../public/assets/img/favicon/logo.png" alt="logo" style="width: 50px; height: 50px;">
           </span>
           <span class="app-brand-text demo menu-text fw-bolder ms-2">EduProfile</span>
         </a>
@@ -46,7 +46,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="my-students.php" class="menu-link">
-                <div data-i18n="Account">View Students</div>
+                <div data-i18n="Account">My Students</div>
               </a>
             </li>
             <li class="menu-item">

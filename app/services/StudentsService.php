@@ -114,6 +114,145 @@ require_once __DIR__ . '/../models/Model.php';
             //return the results
             return $results ?? [];
         }
+
+        // view student details for the teacher
+        public function getStudentDetails(){
+            try{
+                $query = "SELECT
+                    s.id,
+                    s.lrn,
+                    s.first_name,
+                    s.middle_name,
+                    s.last_name,
+                    s.suffix,
+                    s.gender,
+                    s.birth_date,
+                    s.age,
+                    s.place_of_birth,
+                    s.nationality,
+                    s.religion,
+                    s.address,
+                    s.contact_number,
+                    s.email,
+                    s.grade_level,
+                    s.enrollment_status,
+                    s.profile_photo
+                    FROM {$this->students} s
+                    WHERE s.id = ?
+                    ORDER BY s.first_name ASC, s.last_name ASC
+                ";
+                $stmt = $this->con->prepare($query);
+
+                //check if stmt is not successfully prepared
+                if(!$stmt){
+                    return null; //return null if statement preparation fails
+                }
+                $stmt->bind_param("i", $_SESSION['id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $result = $result->fetch_all(MYSQLI_ASSOC);
+                return $result[0] ?? null; //return the first result or null if not found
+            }catch(Exception $e){
+                error_log("Get Student Details Error: " . $e->getMessage());
+                return null;
+            }finally{
+                if($stmt){
+                    $stmt->close();
+                }
+            }
+        }
+
+        /**
+         * Get student details by student ID
+         * @param int $student_id The student's ID
+         * @return array|null Student details or null if not found
+         */
+        public function getStudentDetailsById($student_id){
+            try{
+                $query = "SELECT
+                    s.id,
+                    s.lrn,
+                    s.first_name,
+                    s.middle_name,
+                    s.last_name,
+                    s.suffix,
+                    s.gender,
+                    s.birth_date,
+                    s.age,
+                    s.place_of_birth,
+                    s.nationality,
+                    s.religion,
+                    s.address,
+                    s.contact_number,
+                    s.email,
+                    s.grade_level,
+                    s.enrollment_status,
+                    s.profile_photo
+                    FROM {$this->students} s
+                    WHERE s.id = ?
+                ";
+                $stmt = $this->con->prepare($query);
+                
+                if(!$stmt){
+                    return null;
+                }
+                $stmt->bind_param("i", $student_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                return $row ?? null;
+            }catch(Exception $e){
+                error_log("Get Student Details By ID Error: " . $e->getMessage());
+                return null;
+            }finally{
+                if($stmt){
+                    $stmt->close();
+                }
+            }
+        }
+
+        /**
+         * Get guardian information by student ID
+         * @param int $student_id The student's ID
+         * @return array|null Guardian information or null if not found
+         */
+        public function getGuardianInfoByStudentId($student_id){
+            try{
+                $query = "SELECT
+                    pg.id,
+                    pg.student_id,
+                    pg.father_name,
+                    pg.father_occupation,
+                    pg.father_contact,
+                    pg.mother_name,
+                    pg.mother_occupation,
+                    pg.mother_contact,
+                    pg.guardian_name,
+                    pg.guardian_relationship,
+                    pg.guardian_contact,
+                    pg.monthly_income
+                    FROM parents_guardians pg
+                    WHERE pg.student_id = ?
+                ";
+                $stmt = $this->con->prepare($query);
+                
+                if(!$stmt){
+                    return null;
+                }
+                $stmt->bind_param("i", $student_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                return $row ?? null;
+            }catch(Exception $e){
+                error_log("Get Guardian Info Error: " . $e->getMessage());
+                return null;
+            }finally{
+                if($stmt){
+                    $stmt->close();
+                }
+            }
+        }
     }
 
 ?>

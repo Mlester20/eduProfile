@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2026 at 04:47 PM
+-- Generation Time: Jun 01, 2026 at 02:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,20 +49,6 @@ CREATE TABLE `assign_section_subjects` (
   `subject_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `assign_section_subjects`
---
-
-INSERT INTO `assign_section_subjects` (`id`, `section_id`, `subject_id`, `created_at`) VALUES
-(11, 10, 15, '2026-05-29 14:30:51'),
-(12, 10, 16, '2026-05-29 14:30:51'),
-(13, 10, 17, '2026-05-29 14:30:51'),
-(14, 10, 18, '2026-05-29 14:30:51'),
-(15, 10, 19, '2026-05-29 14:30:51'),
-(16, 10, 20, '2026-05-29 14:30:51'),
-(17, 10, 21, '2026-05-29 14:30:51'),
-(18, 10, 22, '2026-05-29 14:30:51');
 
 -- --------------------------------------------------------
 
@@ -195,7 +181,9 @@ INSERT INTO `audit_logs` (`id`, `user_id`, `role`, `action`, `module`, `referenc
 (113, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:10:51'),
 (114, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:12:17'),
 (115, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-30 14:12:40'),
-(116, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 14:17:21');
+(116, 5, 'teacher', 'LOGIN', 'AUTH', NULL, NULL, 'Jennifer J. Upton logged in', '::1', 'success', '2026-05-30 14:17:21'),
+(117, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-05-31 13:00:28'),
+(118, 13, 'registrar', 'LOGIN', 'AUTH', NULL, NULL, 'Registrar logged in', '::1', 'success', '2026-06-01 12:51:38');
 
 -- --------------------------------------------------------
 
@@ -292,32 +280,24 @@ CREATE TABLE `students` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `students`
+-- Table structure for table `student_health_records`
 --
 
-INSERT INTO `students` (`id`, `lrn`, `first_name`, `middle_name`, `last_name`, `suffix`, `grade_level`, `gender`, `birth_date`, `age`, `place_of_birth`, `nationality`, `religion`, `address`, `contact_number`, `email`, `profile_photo`, `enrollment_status`, `created_at`) VALUES
-(3, '2026000001', 'Mark', 'Santos', 'Reyes', NULL, 'Grade 1', 'Male', '2012-05-14', 14, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09171234567', 'mark.reyes@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(4, '2026000002', 'Angela', 'Lopez', 'Cruz', NULL, 'Grade 1', 'Female', '2011-09-22', 15, 'Tuguegarao City, Cagayan', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09181234567', 'angela.cruz@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(5, '2026000003', 'Joshua', 'Rivera', 'Fernandez', NULL, 'Grade 1', 'Male', '2013-01-10', 13, 'Santiago City, Isabela', 'Filipino', 'Iglesia ni Cristo', 'Cabagan, Isabela', '09191234567', 'joshua.fernandez@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(6, '2026000004', 'Sophia', 'Garcia', 'Mendoza', NULL, 'Grade 1', 'Female', '2012-07-18', 14, 'Cauayan City, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09201234567', 'sophia.mendoza@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(7, '2026000005', 'Daniel', 'Torres', 'Villanueva', 'Jr.', 'Grade 1', 'Male', '2011-11-30', 15, 'Aparri, Cagayan', 'Filipino', 'Born Again Christian', 'Roxas, Isabela', '09211234567', 'daniel.v@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(8, '2026000006', 'Kimberly', 'Aquino', 'Santiago', NULL, 'Grade 1', 'Female', '2013-03-25', 13, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'San Mateo, Isabela', '09221234567', 'kimberly.santiago@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(9, '2026000007', 'Nathan', 'Perez', 'Domingo', NULL, 'Grade 1', 'Male', '2012-12-05', 14, 'Echague, Isabela', 'Filipino', 'Roman Catholic', 'Jones, Isabela', '09231234567', 'nathan.domingo@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(10, '2026000008', 'Beatrice', 'Castro', 'Flores', NULL, 'Grade 1', 'Female', '2011-08-16', 15, 'Naguilian, Isabela', 'Filipino', 'Methodist', 'Luna, Isabela', '09241234567', 'beatrice.flores@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(11, '2026000009', 'Christian', 'Ramos', 'De Leon', NULL, 'Grade 1', 'Male', '2012-02-08', 14, 'Gamu, Isabela', 'Filipino', 'Roman Catholic', 'Tumauini, Isabela', '09251234567', 'christian.deleon@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(12, '2026000010', 'Patricia', 'Navarro', 'Salvador', NULL, 'Grade 1', 'Female', '2013-06-27', 13, 'Reina Mercedes, Isabela', 'Filipino', 'Roman Catholic', 'Luna, Isabela', '09261234567', 'patricia.salvador@gmail.com', 'default.png', 'Enrolled', '2026-05-19 14:23:14'),
-(13, '118765432101', 'Juan', 'Santos', 'Dela Cruz', NULL, 'Grade 1', 'Male', '2013-05-14', 11, 'Quezon City', 'Filipino', 'Catholic', 'Brgy. San Isidro, Luna, Isabela', '09171234567', 'juan.delacruz@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(14, '118765432102', 'Maria', 'Reyes', 'Lopez', NULL, 'Grade 1', 'Female', '2012-11-20', 12, 'Ilagan City', 'Filipino', 'Catholic', 'Brgy. Lallayug, Luna, Isabela', '09181234567', 'maria.lopez@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(15, '118765432103', 'Mark', 'Villanueva', 'Garcia', '', 'Grade 1', 'Male', '2014-02-09', 10, 'Tuguegarao City', 'Filipino', 'INC', 'Brgy. Macatel, Luna, Isabela', '09191234567', 'mark.garcia@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(16, '118765432104', 'Angela', 'Torres', 'Ramos', NULL, 'Grade 1', 'Female', '2013-08-25', 11, 'Santiago City', 'Filipino', 'Catholic', 'Brgy. Abbag, Luna, Isabela', '09201234567', 'angela.ramos@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(17, '118765432105', 'Joshua', 'Fernandez', 'Mendoza', 'Jr.', 'Grade 1', 'Male', '2012-03-18', 12, 'Cauayan City', 'Filipino', 'Born Again', 'Brgy. Union, Luna, Isabela', '09211234567', 'joshua.mendoza@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(18, '118765432106', 'Christine', 'Aquino', 'Castro', NULL, 'Grade 1', 'Female', '2014-07-11', 10, 'Aparri, Cagayan', 'Filipino', 'Catholic', 'Brgy. Luyao, Luna, Isabela', '09221234567', 'christine.castro@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(19, '118765432107', 'Daniel', 'Perez', 'Navarro', '', 'Grade 1', 'Male', '2013-01-30', 11, 'Naguilian, Isabela', 'Filipino', 'Baptist', 'Brgy. Mambabanga, Luna, Isabela', '09231234567', 'daniel.navarro@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(20, '118765432108', 'Sophia', 'Manalo', 'Bautista', NULL, 'Grade 1', 'Female', '2012-09-05', 12, 'Cabagan, Isabela', 'Filipino', 'Catholic', 'Brgy. Centro, Luna, Isabela', '09241234567', 'sophia.bautista@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(21, '118765432109', 'Kevin', 'Flores', 'Diaz', NULL, 'Grade 1', 'Male', '2014-04-27', 10, 'Roxas, Isabela', 'Filipino', 'Catholic', 'Brgy. Salvacion, Luna, Isabela', '09251234567', 'kevin.diaz@example.com', 'default.png', 'Transferred', '2026-05-22 03:45:03'),
-(22, '118765432110', 'Patricia', 'Morales', 'Gonzales', '', 'Grade 6', 'Female', '2013-12-15', 11, 'Tumauini, Isabela', 'Filipino', 'Methodist', 'Brgy. Nannarian, Luna, Isabela', '09261234567', 'patricia.gonzales@example.com', 'default.png', 'Enrolled', '2026-05-22 03:45:03'),
-(24, '20242111365', 'Mark Lester ', 'Suguitan', 'Raguindin', '', 'Grade 2', 'Male', '2002-12-20', 11, 'Ilagan City, Isabela', 'Filipino', 'Roman Catholic', 'Rizal, Roxas, Isabela', '', '', '', 'Enrolled', '2026-05-30 14:13:58');
+CREATE TABLE `student_health_records` (
+  `health_id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `height` decimal(5,2) DEFAULT NULL,
+  `weight` decimal(5,2) DEFAULT NULL,
+  `blood_type` varchar(10) DEFAULT NULL,
+  `allergies` text DEFAULT NULL,
+  `medical_conditions` text DEFAULT NULL,
+  `vaccination_status` text DEFAULT NULL,
+  `emergency_contact_name` varchar(150) DEFAULT NULL,
+  `emergency_contact_number` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -330,16 +310,6 @@ CREATE TABLE `student_sections` (
   `student_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `student_sections`
---
-
-INSERT INTO `student_sections` (`id`, `student_id`, `section_id`) VALUES
-(40, 3, 10),
-(41, 4, 10),
-(42, 5, 10),
-(43, 24, 10);
 
 -- --------------------------------------------------------
 
@@ -398,7 +368,21 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `profile_pi
 (13, 'Registrar', 'registrar@school.edu.ph', '$2y$10$IEz8YAjPkN2ddoQTR6YRUupEwnweJ6YNzsl8opZsKoXrMMFkaJYZG', 'registrar', 'storage/profiles/pfp_13_1779633057.jpg', '2026-05-15', '2026-05-30'),
 (14, 'teacher 2', 'teacher1@gmail.com', '$2y$10$1LxuNhIoGyP5pgS2rnMGheE2vsCuzAQqAqSHqqSkTl6DHBeXaH.pm', 'teacher', NULL, '2026-05-19', '2026-05-19'),
 (15, 'John Doe', 'teacher3@gmail.com', '$2y$10$MH6VDut/tBSlLmu23a55geQaSo08Yplt7XPdXEg2yFKU38qfc4Mdu', 'teacher', 'storage/profiles/pfp_15_1779416785.png', '2026-05-19', '2026-05-22'),
-(16, 'teacher 4', 'teacher4@gmail.com', '$2y$10$1kGUkbDy5q4l9wL.g6YlW.RdTV2sgmoOiCNdpmezmoXzfJ9nRTCi.', 'teacher', NULL, '2026-05-19', '2026-05-19');
+(16, 'teacher 4', 'teacher4@gmail.com', '$2y$10$1kGUkbDy5q4l9wL.g6YlW.RdTV2sgmoOiCNdpmezmoXzfJ9nRTCi.', 'teacher', NULL, '2026-05-19', '2026-05-19'),
+(101, 'Rodrigo B. Reyes', 'rodrigobreyes101@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(102, 'Cecilia M. Flores', 'ceciliamflores102@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(103, 'Ernesto T. Garcia', 'ernestotgarcia103@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(104, 'Lorna V. Lopez', 'lornavlopez104@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(105, 'Ramon C. Torres', 'ramonctorres105@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(106, 'Gloria P. Ramos', 'gloriapramos106@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(107, 'Nestor F. Bautista', 'nestorfbautista107@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(108, 'Anita R. Mendoza', 'anitarmendoza108@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(109, 'Alfredo S. De Leon', 'alfredosdeleon109@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(110, 'Zenaida N. Salvador', 'zenaidansalvador110@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(111, 'Benedict J. Villanueva', 'benedictjvillanueva111@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(112, 'Teresita D. Navarro', 'teresitadnavarro112@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(113, 'Angelo E. Fernandez', 'angeloefernandez113@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01'),
+(114, 'Maricel G. Domingo', 'maricelgdomingo114@school.edu.ph', '$2y$10$placeholderHashForSampleData.xxxxxxxxxxxxxxxxxxxxxx', 'teacher', NULL, '2026-06-01', '2026-06-01');
 
 --
 -- Indexes for dumped tables
@@ -470,6 +454,13 @@ ALTER TABLE `students`
   ADD UNIQUE KEY `lrn` (`lrn`);
 
 --
+-- Indexes for table `student_health_records`
+--
+ALTER TABLE `student_health_records`
+  ADD PRIMARY KEY (`health_id`),
+  ADD UNIQUE KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `student_sections`
 --
 ALTER TABLE `student_sections`
@@ -503,7 +494,7 @@ ALTER TABLE `academic_history`
 -- AUTO_INCREMENT for table `assign_section_subjects`
 --
 ALTER TABLE `assign_section_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `attendance`
@@ -515,13 +506,13 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `audit_logs`
 --
 ALTER TABLE `audit_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `parents_guardians`
 --
 ALTER TABLE `parents_guardians`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `school_year`
@@ -542,10 +533,16 @@ ALTER TABLE `students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `student_health_records`
+--
+ALTER TABLE `student_health_records`
+  MODIFY `health_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `student_sections`
 --
 ALTER TABLE `student_sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -557,7 +554,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- Constraints for dumped tables
@@ -605,6 +602,12 @@ ALTER TABLE `parents_guardians`
 ALTER TABLE `sections`
   ADD CONSTRAINT `sections_ibfk_1` FOREIGN KEY (`adviser_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `sections_ibfk_2` FOREIGN KEY (`school_year_id`) REFERENCES `school_year` (`id`);
+
+--
+-- Constraints for table `student_health_records`
+--
+ALTER TABLE `student_health_records`
+  ADD CONSTRAINT `student_health_records_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `student_sections`
